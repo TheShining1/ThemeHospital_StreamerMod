@@ -144,8 +144,11 @@
     <ClInclude Include="Epidemy.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Quake.h" />
+    <ClInclude Include="QuakeNext.h" />
+    <ClInclude Include="Quake\Quake.h" />
+    <ClInclude Include="Quake\QuakeManager.h" />
     <ClInclude Include="VIP.h" />
+    <ClInclude Include="WebSocket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
@@ -157,7 +160,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Quake.cpp" />
+    <ClCompile Include="QuakeNext.cpp" />
+    <ClCompile Include="Quake\Quake.cpp" />
+    <ClCompile Include="Quake\QuakeManager.cpp" />
     <ClCompile Include="VIP.cpp" />
   </ItemGroup>
   <ItemGroup>

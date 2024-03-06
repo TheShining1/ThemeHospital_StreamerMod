@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Quake">
+      <UniqueIdentifier>{9376d5b1-bbc0-423a-91b1-63e42cc19299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Quake">
+      <UniqueIdentifier>{2b067aa5-a7a5-4dac-8669-ddf2cdcf4925}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -24,9 +30,6 @@
     <ClInclude Include="dllmain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Quake.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Emergency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -35,6 +38,18 @@
     </ClInclude>
     <ClInclude Include="Epidemy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Quake\Quake.h">
+      <Filter>Header Files\Quake</Filter>
+    </ClInclude>
+    <ClInclude Include="Quake\QuakeManager.h">
+      <Filter>Header Files\Quake</Filter>
+    </ClInclude>
+    <ClInclude Include="QuakeNext.h">
+      <Filter>Header Files\Quake</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,8 +68,14 @@
     <ClCompile Include="Emergency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quake.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Quake\Quake.cpp">
+      <Filter>Source Files\Quake</Filter>
+    </ClCompile>
+    <ClCompile Include="Quake\QuakeManager.cpp">
+      <Filter>Source Files\Quake</Filter>
+    </ClCompile>
+    <ClCompile Include="QuakeNext.cpp">
+      <Filter>Source Files\Quake</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,24 @@
 #include <iostream>
 #include <thread>
 #include "dllmain.h"
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
+#include <boost/log/sinks/text_file_backend.hpp>
+#include <boost/log/utility/setup/file.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
+#include <boost/log/sources/severity_logger.hpp>
+#include <boost/log/sources/record_ostream.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/json.hpp>
+
+#include "WebSocket.h"
+#include "./Quake/QuakeManager.h"
+
+namespace logging = boost::log;
+namespace src = boost::log::sources;
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -16,6 +30,9 @@ using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 
 void do_session(tcp::socket socket)
 {
+  using namespace logging::trivial;
+  src::severity_logger<severity_level> lg;
+
   try
   {
     // Construct the stream by moving in the socket
@@ -38,13 +55,13 @@ void do_session(tcp::socket socket)
       // This buffer will hold the incoming message
       beast::flat_buffer buffer;
 
-      std::cout << "Waiting for message" << std::endl;
+       BOOST_LOG_SEV(lg, debug) << "Waiting for message";
       // Read a message
       ws.read(buffer);
-      std::cout << beast::make_printable(buffer.data()) << std::endl;
+       BOOST_LOG_SEV(lg, debug) << beast::make_printable(buffer.data());
 
       std::string data = beast::buffers_to_string(buffer.data());
-      std::cout << data << std::endl;
+       BOOST_LOG_SEV(lg, debug) << data;
       //Message message = Message::Parse(data);
 
       //std::cout << message.App << std::endl;
@@ -73,24 +90,27 @@ void do_session(tcp::socket socket)
   {
     // This indicates that the session was closed
     if (se.code() != websocket::error::closed)
-      std::cerr << "Error: " << se.code().message() << std::endl;
+      std::cerr << "Error: " << se.code().message();
   }
   catch (std::exception const& e)
   {
-    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << "Error: " << e.what();
   }
 }
 
-void WS_Start(const char* targetAddress, const char* targetPort)
+void WS_Thread(WS_Config* wsConfig)
 {
-  std::cout << "Starting WebSocket server" << std::endl;
-  std::cout << "Host " << targetAddress << std::endl;
-  std::cout << "Port " << targetPort << std::endl;
+  using namespace logging::trivial;
+  src::severity_logger<severity_level> lg;
+
+   BOOST_LOG_SEV(lg, debug) << "Starting WebSocket server";
+   BOOST_LOG_SEV(lg, debug) << "Host " << wsConfig->Host;
+   BOOST_LOG_SEV(lg, debug) << "Port " << wsConfig->Port;
 
   try
   {
-    auto const address = net::ip::make_address(targetAddress);
-    auto const port = static_cast<unsigned short>(std::atoi(targetPort));
+    auto const address = net::ip::make_address(wsConfig->Host);
+    auto const port = static_cast<unsigned short>(std::stoi(wsConfig->Port));
 
     // The io_context is required for all I/O
     net::io_context ioc{ 1 };
@@ -102,7 +122,7 @@ void WS_Start(const char* targetAddress, const char* targetPort)
       // This will receive the new connection
       tcp::socket socket{ ioc };
 
-      std::cout << "Waiting for connection" << std::endl;
+       BOOST_LOG_SEV(lg, debug) << "Waiting for connection";
       // Block until we get a connection
       acceptor.accept(socket);
 
@@ -114,7 +134,7 @@ void WS_Start(const char* targetAddress, const char* targetPort)
   }
   catch (const std::exception& e)
   {
-    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << "Error: " << e.what();
     return;
   }
 }
@@ -129,19 +149,42 @@ HANDLE CreateConsole()
   freopen_s(&fDummy, "CONOUT$", "w", stderr);
   freopen_s(&fDummy, "CONOUT$", "w", stdout);
 
+  //freopen_s(&fDummy, "inputs.txt", "r", stdin);
+  //freopen_s(&fDummy, "logs.txt", "a+", stdout);
+  //freopen_s(&fDummy, "error.txt", "a+", stderr);
+
   return GetStdHandle(STD_OUTPUT_HANDLE);
+}
+
+void Commands_Thread()
+{
+  DWORD lpModuleBaseAddress = 0x00400000;
+
+  QuakeManager quakeManager = QuakeManager(lpModuleBaseAddress);
 }
 
 void hookThread()
 {
+  logging::add_file_log("logs.log");
+  logging::add_common_attributes();
+  using namespace logging::trivial;
+  src::severity_logger<severity_level> lg;
+
   HANDLE hConsole = NULL;
   if (hConsole == NULL) {
     hConsole = CreateConsole();
   }
 
-  puts("Theme Hospital Streamer Mod DLL injected");
+  BOOST_LOG_SEV(lg, debug) << "Theme Hospital Streamer Mod DLL injecting";
+  //std::cout << "Theme Hospital Streamer Mod DLL injecting" << std::endl;
 
-  WS_Start("127.0.0.1", "9099");
+  WS_Config* wsConfig = new WS_Config{ "127.0.0.1", "9099" };
+
+  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WS_Thread, wsConfig, 0, NULL);
+  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Commands_Thread, NULL, 0, NULL);
+
+  BOOST_LOG_SEV(lg, debug) << "Theme Hospital Streamer Mod DLL injected";
+  //std::cout << "Theme Hospital Streamer Mod DLL injected" << std::endl;
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
