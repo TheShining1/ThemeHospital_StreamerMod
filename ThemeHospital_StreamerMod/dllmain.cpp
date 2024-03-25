@@ -3,24 +3,17 @@
 #include <iostream>
 #include <thread>
 #include "dllmain.h"
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/sinks/text_file_backend.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/sources/severity_logger.hpp>
-#include <boost/log/sources/record_ostream.hpp>
+
 #include <boost/beast/core.hpp>
 #include <boost/beast/websocket.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/json.hpp>
 
+#include "Logger.h"
 #include "WebSocket.h"
+#include "Message.h"
+#include "./Commands/Commands.h"
 #include "./Quake/QuakeManager.h"
-
-namespace logging = boost::log;
-namespace src = boost::log::sources;
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -28,10 +21,20 @@ namespace websocket = beast::websocket; // from <boost/beast/websocket.hpp>
 namespace net = boost::asio;            // from <boost/asio.hpp>
 using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 
+//void UnhookDLL()
+//{
+//  BOOST_LOG_SEV(lg, debug) << "Theme Hospital Streamer Mod DLL unload";
+//
+//  HMODULE hDll = GetModuleHandle(NULL);
+//  BOOST_LOG_SEV(lg, debug) << "hDll " << hDll;
+//   FreeLibraryAndExitThread(hDll,0);
+//}
+
 void do_session(tcp::socket socket)
 {
-  using namespace logging::trivial;
-  src::severity_logger<severity_level> lg;
+  //Logger logger = Logger();
+  //using namespace logging::trivial;
+  //src::severity_logger<severity_level> lg;
 
   try
   {
@@ -55,35 +58,47 @@ void do_session(tcp::socket socket)
       // This buffer will hold the incoming message
       beast::flat_buffer buffer;
 
-       BOOST_LOG_SEV(lg, debug) << "Waiting for message";
+      LOG_DEBUG("Waiting for message");
+      //logger.Log("Waiting for message");
       // Read a message
       ws.read(buffer);
-       BOOST_LOG_SEV(lg, debug) << beast::make_printable(buffer.data());
 
       std::string data = beast::buffers_to_string(buffer.data());
-       BOOST_LOG_SEV(lg, debug) << data;
-      //Message message = Message::Parse(data);
+      LOG_DEBUG(data);
+      //logger.Log(data);
 
+      Message message = Message::Parse(data);
+
+      //logger.Log(message.App);
+      //logger.Log(message.CommandName);
+      LOG_DEBUG(message.App);
+      LOG_DEBUG(message.CommandName);
       //std::cout << message.App << std::endl;
       //std::cout << message.CommandName << std::endl;
 
-      /*CommandQuake cq;
+      //CommandsFactory* cf = new CommandsFactory();
+      //ICommand* command = cf->Generate(message.CommandName, message.Command);
+      //logger.Log(command.Name);
+      //LOG_DEBUG(command.Name);
+      //command.Run();
+      //CommandQuake cq;
+
+      CommandClose cc = CommandClose();
+      CommandQuake cq = CommandQuake();
+
       switch (message.CommandName)
       {
       case Commands::Close:
-        std::cout << "Close command" << std::endl;
-        ws.close(beast::websocket::close_code::none);
-        return;
+        cc = CommandClose::Parse(message.Command);
+        cc.Run();
         break;
       case Commands::Quake:
-        std::cout << "Quake command" << std::endl;
         cq = CommandQuake::Parse(message.Command);
-        std::cout << cq.Name << std::endl;
-        std::cout << cq.Severity << std::endl;
+        cq.Run();
         break;
       default:
-        std::cout << "Unknown command" << std::endl;
-      }*/
+        break;
+      }
     }
   }
   catch (beast::system_error const& se)
@@ -100,12 +115,16 @@ void do_session(tcp::socket socket)
 
 void WS_Thread(WS_Config* wsConfig)
 {
-  using namespace logging::trivial;
-  src::severity_logger<severity_level> lg;
+  //Logger logger = Logger();
+  //using namespace logging::trivial;
+  //src::severity_logger<severity_level> lg;
 
-   BOOST_LOG_SEV(lg, debug) << "Starting WebSocket server";
-   BOOST_LOG_SEV(lg, debug) << "Host " << wsConfig->Host;
-   BOOST_LOG_SEV(lg, debug) << "Port " << wsConfig->Port;
+  //logger.Log("Starting WebSocket server");
+  //logger.Log(wsConfig->Host);
+  //logger.Log(wsConfig->Port);
+  LOG_DEBUG("Starting WebSocket server");
+  LOG_DEBUG("Host " << wsConfig->Host);
+  LOG_DEBUG("Port " << wsConfig->Port);
 
   try
   {
@@ -122,7 +141,8 @@ void WS_Thread(WS_Config* wsConfig)
       // This will receive the new connection
       tcp::socket socket{ ioc };
 
-       BOOST_LOG_SEV(lg, debug) << "Waiting for connection";
+      LOG_DEBUG("Waiting for connection");
+      //logger.Log("Waiting for connection");
       // Block until we get a connection
       acceptor.accept(socket);
 
@@ -158,24 +178,30 @@ HANDLE CreateConsole()
 
 void Commands_Thread()
 {
+  //Logger logger = Logger();
+
   DWORD lpModuleBaseAddress = 0x00400000;
 
-  QuakeManager quakeManager = QuakeManager(lpModuleBaseAddress);
+  //QuakeManager quakeManager = QuakeManager(logger, lpModuleBaseAddress);
+  std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
 }
 
 void hookThread()
 {
-  logging::add_file_log("logs.log");
+ /* logging::add_file_log("logs.log");
   logging::add_common_attributes();
   using namespace logging::trivial;
-  src::severity_logger<severity_level> lg;
+  src::severity_logger<severity_level> lg;*/
 
   HANDLE hConsole = NULL;
   if (hConsole == NULL) {
     hConsole = CreateConsole();
   }
 
-  BOOST_LOG_SEV(lg, debug) << "Theme Hospital Streamer Mod DLL injecting";
+  //Logger logger = Logger();
+  //log_init();
+
+  LOG_DEBUG("Theme Hospital Streamer Mod DLL injecting");
   //std::cout << "Theme Hospital Streamer Mod DLL injecting" << std::endl;
 
   WS_Config* wsConfig = new WS_Config{ "127.0.0.1", "9099" };
@@ -183,8 +209,12 @@ void hookThread()
   CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WS_Thread, wsConfig, 0, NULL);
   CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Commands_Thread, NULL, 0, NULL);
 
-  BOOST_LOG_SEV(lg, debug) << "Theme Hospital Streamer Mod DLL injected";
+  LOG_DEBUG("Theme Hospital Streamer Mod DLL injected");
   //std::cout << "Theme Hospital Streamer Mod DLL injected" << std::endl;
+
+  //Sleep(15000);
+
+  //UnhookDLL();
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,

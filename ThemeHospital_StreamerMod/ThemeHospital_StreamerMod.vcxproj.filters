@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Quake">
       <UniqueIdentifier>{2b067aa5-a7a5-4dac-8669-ddf2cdcf4925}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{62740871-db2a-418e-80da-c32dbbd6df33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Commands">
+      <UniqueIdentifier>{54ff8c2d-cef7-4907-b4d6-1018902af126}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -48,8 +54,20 @@
     <ClInclude Include="Quake\QuakeManager.h">
       <Filter>Header Files\Quake</Filter>
     </ClInclude>
-    <ClInclude Include="QuakeNext.h">
+    <ClInclude Include="Quake\QuakeNext.h">
       <Filter>Header Files\Quake</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\Commands.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\ICommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -74,8 +92,17 @@
     <ClCompile Include="Quake\QuakeManager.cpp">
       <Filter>Source Files\Quake</Filter>
     </ClCompile>
-    <ClCompile Include="QuakeNext.cpp">
+    <ClCompile Include="Quake\QuakeNext.cpp">
       <Filter>Source Files\Quake</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\Commands.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

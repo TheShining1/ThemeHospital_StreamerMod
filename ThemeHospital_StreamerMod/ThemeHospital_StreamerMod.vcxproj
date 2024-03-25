@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{0bba107c-53ae-4858-94a4-694215017ced}</ProjectGuid>
-    <RootNamespace>ThemeHospitaStreamerMod</RootNamespace>
+    <RootNamespace>ThemeHospitalStreamerMod</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,10 +74,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;THEMEHOSPITASTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;ThemeHospitalSTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;THEMEHOSPITASTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;ThemeHospitalSTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -108,7 +109,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;THEMEHOSPITASTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;ThemeHospitalSTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -125,7 +126,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;THEMEHOSPITASTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;ThemeHospitalSTREAMERMOD_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -139,30 +140,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Commands\Commands.h" />
+    <ClInclude Include="Commands\ICommand.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Emergency.h" />
     <ClInclude Include="Epidemy.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Message.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="QuakeNext.h" />
     <ClInclude Include="Quake\Quake.h" />
     <ClInclude Include="Quake\QuakeManager.h" />
+    <ClInclude Include="Quake\QuakeNext.h" />
     <ClInclude Include="VIP.h" />
     <ClInclude Include="WebSocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Commands\Commands.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Emergency.cpp" />
     <ClCompile Include="Epidemy.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Message.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="QuakeNext.cpp" />
     <ClCompile Include="Quake\Quake.cpp" />
     <ClCompile Include="Quake\QuakeManager.cpp" />
+    <ClCompile Include="Quake\QuakeNext.cpp" />
     <ClCompile Include="VIP.cpp" />
   </ItemGroup>
   <ItemGroup>
