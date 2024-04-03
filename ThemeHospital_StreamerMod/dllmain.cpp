@@ -63,11 +63,11 @@ void do_session(tcp::socket socket)
       // Read a message
       ws.read(buffer);
 
-      std::string data = beast::buffers_to_string(buffer.data());
-      LOG_DEBUG(data);
+      std::string incommingMessage = beast::buffers_to_string(buffer.data());
+      LOG_DEBUG(incommingMessage);
       //logger.Log(data);
 
-      Message message = Message::Parse(data);
+      Message message = Message::Parse(incommingMessage);
 
       //logger.Log(message.App);
       //logger.Log(message.CommandName);
@@ -77,13 +77,25 @@ void do_session(tcp::socket socket)
       //std::cout << message.CommandName << std::endl;
 
       //CommandsFactory* cf = new CommandsFactory();
-      //ICommand* command = cf->Generate(message.CommandName, message.Command);
+      ICommand* command = CommandsFactory::Generate(message.CommandName, message.Command);
+      //LOG_DEBUG(command->ID());
       //logger.Log(command.Name);
-      //LOG_DEBUG(command.Name);
-      //command.Run();
+      //LOG_DEBUG(command->Name);
+      bool complete = command->Run();
+      LOG_DEBUG(complete);
+
+      boost::json::object response = {};
+      response["App"] = message.App;
+      response["ID"] = message.ID;
+      response["Complete"] = complete;
+
+      std::string outgoingMessage = boost::json::serialize(response);
+      LOG_DEBUG(outgoingMessage);
+
+      ws.write(net::buffer(outgoingMessage));
       //CommandQuake cq;
 
-      CommandClose cc = CommandClose();
+      /*CommandClose cc = CommandClose();
       CommandQuake cq = CommandQuake();
 
       switch (message.CommandName)
@@ -98,7 +110,7 @@ void do_session(tcp::socket socket)
         break;
       default:
         break;
-      }
+      }*/
     }
   }
   catch (beast::system_error const& se)

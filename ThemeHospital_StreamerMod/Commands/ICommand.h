@@ -5,9 +5,8 @@
 class ICommand
 {
 private:
-  BOOST_DESCRIBE_CLASS(ICommand, (), (Name, Run), (), ());
+  BOOST_DESCRIBE_CLASS(ICommand, (), (Run), (), ());
 public:
-  std::string Name;
-
-  virtual void Run() const = 0;
+  virtual bool Run() const = 0;
+  //virtual std::string ID() = 0;
 };

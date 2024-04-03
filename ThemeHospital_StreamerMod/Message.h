@@ -7,10 +7,11 @@
 class Message
 {
 private:
-	BOOST_DESCRIBE_CLASS(Message, (), (App, CommandName, Command, (Message(std::string_view)) Parse), (), ());
+	BOOST_DESCRIBE_CLASS(Message, (), (App, ID, CommandName, Command, (Message(std::string_view)) Parse), (), ());
 
 public:
 	std::string App;
+	std::string ID;
 	Commands CommandName;
 	std::string Command;
 

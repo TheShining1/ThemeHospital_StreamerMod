@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "QuakeManager.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 std::shared_ptr<QuakeManager> QuakeManager::instance = nullptr;
 
@@ -17,6 +19,7 @@ QuakeManager::QuakeManager(DWORD lpModuleBaseAddress)
 
 	this->_indexUsed = this->setIndexUsed();
 	this->_quakeNext = this->setQuakeNext();
+	this->_quakeStage = this->setQuakeStage();
 }
 
 std::array<bool, 16>* QuakeManager::setIndexUsed()
@@ -27,6 +30,11 @@ std::array<bool, 16>* QuakeManager::setIndexUsed()
 QuakeNext* QuakeManager::setQuakeNext()
 {
 	return (QuakeNext*)(this->_lpModuleBaseAddress + this->_quakeNextOffset);
+}
+
+BYTE* QuakeManager::setQuakeStage()
+{
+	return (BYTE*)(this->_lpModuleBaseAddress + this->_quakeStageOffset);
 }
 
 void QuakeManager::UnsetLastIndex()
@@ -43,7 +51,22 @@ void QuakeManager::UnsetLastIndex()
 
 void QuakeManager::ReplaceQuakeNext(QuakeNext quake)
 {
-	this->_quakeNext->_gametick = quake._gametick;
-	this->_quakeNext->_severity = quake._severity;
-	this->_quakeNext->_enabled = quake._enabled;
+	*this->_quakeNext = quake;
 };
+
+bool QuakeManager::WaitDone()
+{
+	const auto start = std::chrono::steady_clock::now();
+	auto now = std::chrono::steady_clock::now();
+
+	do
+	{
+		LOG_DEBUG("QuakeManager::WaitDone");
+		now = std::chrono::steady_clock::now();
+		if ((now - start) > _waitDuration) return false;
+		
+		std::this_thread::sleep_for(std::chrono::minutes(1));
+	} while (*this->_quakeStage != 4);
+
+	return true;
+}
