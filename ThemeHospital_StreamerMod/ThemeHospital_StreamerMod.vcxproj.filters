@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Commands">
       <UniqueIdentifier>{54ff8c2d-cef7-4907-b4d6-1018902af126}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Emergency">
+      <UniqueIdentifier>{4219d1de-31c4-47ed-906f-12db59659798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Emergency">
+      <UniqueIdentifier>{5e86a012-c6cf-4fab-9094-3d142c0c120b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -34,9 +40,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dllmain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Emergency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VIP.h">
@@ -69,6 +72,15 @@
     <ClInclude Include="Commands\ICommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="Emergency\Emergency.h">
+      <Filter>Header Files\Emergency</Filter>
+    </ClInclude>
+    <ClInclude Include="Emergency\EmergencyManager.h">
+      <Filter>Header Files\Emergency</Filter>
+    </ClInclude>
+    <ClInclude Include="Emergency\EmergencyNext.h">
+      <Filter>Header Files\Emergency</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -81,9 +93,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VIP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Emergency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Quake\Quake.cpp">
@@ -103,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="Commands\Commands.cpp">
       <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Emergency\Emergency.cpp">
+      <Filter>Source Files\Emergency</Filter>
+    </ClCompile>
+    <ClCompile Include="Emergency\EmergencyManager.cpp">
+      <Filter>Source Files\Emergency</Filter>
+    </ClCompile>
+    <ClCompile Include="Emergency\EmergencyNext.cpp">
+      <Filter>Source Files\Emergency</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
