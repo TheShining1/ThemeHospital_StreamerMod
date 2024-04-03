@@ -25,38 +25,16 @@ CommandClose::CommandClose(std::string body)
   boost::json::parse_into(*this, body);
 }
 
-//std::string CommandClose::ID()
-//{
-//  return this->id;
-//}
-
 bool CommandClose::Run() const
 {
   LOG_DEBUG("Running close command");
   return false;
 }
 
-//CommandClose CommandClose::Parse(std::string body)
-//{
-//  CommandClose cc;
-//  boost::json::error_code ec;
-//  boost::json::parse_into(cc, body, ec);
-//  if (ec) {
-//    return CommandClose();
-//  }
-//
-//  return cc;
-//}
-
 CommandQuake::CommandQuake(std::string body)
 {
   boost::json::parse_into(*this, body);
 }
-
-//std::string CommandQuake::ID()
-//{
-//  return this->id;
-//}
 
 bool CommandQuake::Run() const
 {
@@ -70,25 +48,6 @@ bool CommandQuake::Run() const
 
   return qm->WaitDone();
 }
-
-//CommandQuake CommandQuake::Parse(std::string body)
-//{
-//  CommandQuake cq;
-//  boost::json::error_code ec;
-//  boost::json::parse_into(cq, body, ec);
-//  if (ec) {
-//    LOG_DEBUG("Error");
-//    LOG_DEBUG(ec);
-//    return CommandQuake();
-//  }
-//
-//  return cq;
-//}
-
-//std::string CommandUnknown::ID()
-//{
-//  return this->id;
-//}
 
 bool CommandUnknown::Run() const {
   return false;

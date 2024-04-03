@@ -12,11 +12,7 @@ private:
   static std::shared_ptr<Logger> instance;
 
   Logger();
-  //void log_init();
-  //bool instanced;
 
 public:
   static std::shared_ptr<Logger> Get();
-  //void Log(std::string text);
-  //void Log(int text);
 };

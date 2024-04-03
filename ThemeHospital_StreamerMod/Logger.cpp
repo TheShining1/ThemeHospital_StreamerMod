@@ -41,12 +41,3 @@ std::shared_ptr<Logger> Logger::Get()
     instance.reset(new Logger());
   return instance;
 }
-
-//void Logger::Log(std::string text)
-//{
-//  BOOST_LOG_SEV(lg, debug) << text;
-//}
-//void Logger::Log(int text)
-//{
-//  BOOST_LOG_SEV(lg, debug) << text;
-//}
