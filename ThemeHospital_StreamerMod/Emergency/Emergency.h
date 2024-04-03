@@ -11,10 +11,10 @@ private:
 	DWORD skippedOffset = 0x0e118d;
 
 	short bonus;
-	BYTE illnes;
+	BYTE illness;
 	BYTE amount;
 	BYTE percWin;
 
 public:
-	Emergency(DWORD lpModuleBaseAddress, short bonus, BYTE illnes, BYTE amount, BYTE percWin);
+	Emergency(DWORD lpModuleBaseAddress, short bonus, BYTE illness, BYTE amount, BYTE percWin);
 };

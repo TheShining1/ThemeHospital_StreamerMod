@@ -13,6 +13,7 @@
 #include "Message.h"
 #include "./Commands/Commands.h"
 #include "./Quake/QuakeManager.h"
+#include "./Emergency/EmergencyManager.h"
 
 namespace beast = boost::beast;
 namespace http = beast::http; 
@@ -128,6 +129,7 @@ void Commands_Thread()
   DWORD lpModuleBaseAddress = 0x00400000;
 
   std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
+  std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress);
 }
 
 void hookThread()

@@ -17,8 +17,12 @@ EmergencyManager::EmergencyManager(DWORD LpModuleBaseAddress)
 	this->emergencyNext = this->setEmergencyNext();
 }
 
-
 EmergencyNext* EmergencyManager::setEmergencyNext()
 {
 	return (EmergencyNext*)(this->lpModuleBaseAddress + this->emergencyNextOffset);
 }
+
+void EmergencyManager::ReplaceEmergencyNext(EmergencyNext emergency)
+{
+	*this->emergencyNext = emergency;
+};

@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "Emergency.h"
 
-Emergency::Emergency(DWORD lpModuleBaseAddress, short bonus, BYTE illnes, BYTE amount, BYTE percWin)
+Emergency::Emergency(DWORD lpModuleBaseAddress, short bonus, BYTE illness, BYTE amount, BYTE percWin)
 {
   this->lpModuleBaseAddress = lpModuleBaseAddress;
 
   this->bonus = bonus;
-  this->illnes = illnes;
+  this->illness = illness;
   this->amount = amount;
   this->percWin = percWin;
 }

@@ -3,6 +3,7 @@
 #include <boost/json.hpp>
 #include "../Logger.h"
 #include "../Quake/QuakeManager.h"
+#include "../Emergency/EmergencyManager.h"
 
 ICommand* CommandsFactory::Generate(Commands name, std::string body)
 {
@@ -13,6 +14,9 @@ ICommand* CommandsFactory::Generate(Commands name, std::string body)
     break;
   case Commands::Quake:
     return new CommandQuake(body);
+    break;
+  case Commands::Emergency:
+    return new CommandEmergency(body);
     break;
   default:
     return new CommandUnknown();
@@ -47,6 +51,23 @@ bool CommandQuake::Run() const
   qm->ReplaceQuakeNext(qn);
 
   return qm->WaitDone();
+}
+
+CommandEmergency::CommandEmergency(std::string body)
+{
+  boost::json::parse_into(*this, body);
+}
+
+bool CommandEmergency::Run() const
+{
+  LOG_DEBUG("Running emergency command");
+
+  std::shared_ptr<EmergencyManager> em = EmergencyManager::Get(0x00400000);
+
+  EmergencyNext en = EmergencyNext(0, this->Bonus, true, this->Illness, this->Amount, this->PercWin);
+  em->ReplaceEmergencyNext(en);
+
+  return false;
 }
 
 bool CommandUnknown::Run() const {

@@ -7,9 +7,10 @@ enum Commands
 {
   Unknown,
   Close,
-  Quake
+  Quake,
+  Emergency
 };
-BOOST_DESCRIBE_ENUM(Commands, Close, Quake)
+BOOST_DESCRIBE_ENUM(Commands, Close, Quake, Emergency)
 
 class CommandsFactory
 {
@@ -45,6 +46,21 @@ public:
   CommandQuake(std::string body);
   std::string Name;
   int Severity;
+
+  bool Run() const override;
+};
+
+class CommandEmergency: public ICommand
+{
+private:
+  BOOST_DESCRIBE_CLASS(CommandEmergency, (), (Name, Bonus, Illness, Amount, PercWin, Run), (), ());
+public:
+  CommandEmergency(std::string body);
+  std::string Name;
+  WORD Bonus;
+  BYTE Illness;
+  BYTE Amount;
+  BYTE PercWin;
 
   bool Run() const override;
 };
