@@ -65,7 +65,7 @@ bool QuakeManager::WaitDone()
 		now = std::chrono::steady_clock::now();
 		if ((now - start) > _waitDuration) return false;
 		
-		std::this_thread::sleep_for(std::chrono::minutes(1));
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	} while (*this->_quakeStage != 4);
 
 	return true;
