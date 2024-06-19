@@ -14,6 +14,9 @@
 #include "./Commands/Commands.h"
 #include "./Quake/QuakeManager.h"
 #include "./Emergency/EmergencyManager.h"
+#include "./VIP/VIPManager.h"
+#include "./Disaster/DisasterManager.h"
+#include "./Epidemy/EpidemyManager.h"
 
 namespace beast = boost::beast;
 namespace http = beast::http; 
@@ -124,12 +127,30 @@ HANDLE CreateConsole()
   return GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
+void unlockCamera(DWORD LpModuleBaseAddress)
+{
+  DWORD cameraMinPosOffset = 0xe11c2;
+  DWORD cameraMaxPosOffset = 0xe11c4;
+
+  WORD* cameraMinPos = (WORD*)(LpModuleBaseAddress + cameraMinPosOffset);
+  WORD* cameraMaxPos = (WORD*)(LpModuleBaseAddress + cameraMaxPosOffset);
+
+  *cameraMinPos = 0x0;
+  *cameraMaxPos = 0xFFFF;
+}
+
 void Commands_Thread()
 {
   DWORD lpModuleBaseAddress = 0x00400000;
+  DWORD ptHospitalDataOffset = 0xdd124;
 
   std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
-  std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress);
+  std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+  std::shared_ptr<VIPManager> vipManager = VIPManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+  std::shared_ptr<DisasterManager> disasterManager = DisasterManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+  std::shared_ptr<EpidemyManager> epidemyManager = EpidemyManager::Get(lpModuleBaseAddress);
+
+  unlockCamera(lpModuleBaseAddress);
 }
 
 void hookThread()

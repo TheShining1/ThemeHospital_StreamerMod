@@ -31,6 +31,24 @@
     <Filter Include="Source Files\Emergency">
       <UniqueIdentifier>{5e86a012-c6cf-4fab-9094-3d142c0c120b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\VIP">
+      <UniqueIdentifier>{1b18d80f-f37d-4e70-922d-d2377319e4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VIP">
+      <UniqueIdentifier>{74eeea89-72bd-48e5-bbbe-49fe10f83751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Disaster">
+      <UniqueIdentifier>{4ee00981-d8e5-4ad2-a99a-4a22ca24a73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Disaster">
+      <UniqueIdentifier>{f3beb6f9-2086-41fa-b89a-d422b9535e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Epidemy">
+      <UniqueIdentifier>{cecb78e4-78d3-4ed8-acfe-0ffc06919bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Epidemy">
+      <UniqueIdentifier>{269c9603-dcb2-4107-af3f-fb22773b8ce9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -40,12 +58,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dllmain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VIP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Epidemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WebSocket.h">
@@ -81,18 +93,24 @@
     <ClInclude Include="Emergency\EmergencyNext.h">
       <Filter>Header Files\Emergency</Filter>
     </ClInclude>
+    <ClInclude Include="VIP\VIP.h">
+      <Filter>Header Files\VIP</Filter>
+    </ClInclude>
+    <ClInclude Include="VIP\VIPManager.h">
+      <Filter>Header Files\VIP</Filter>
+    </ClInclude>
+    <ClInclude Include="Disaster\DisasterManager.h">
+      <Filter>Header Files\Disaster</Filter>
+    </ClInclude>
+    <ClInclude Include="Epidemy\EpidemyManager.h">
+      <Filter>Header Files\Epidemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Epidemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VIP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Quake\Quake.cpp">
@@ -121,6 +139,18 @@
     </ClCompile>
     <ClCompile Include="Emergency\EmergencyNext.cpp">
       <Filter>Source Files\Emergency</Filter>
+    </ClCompile>
+    <ClCompile Include="VIP\VIP.cpp">
+      <Filter>Source Files\VIP</Filter>
+    </ClCompile>
+    <ClCompile Include="VIP\VIPManage.cpp">
+      <Filter>Source Files\VIP</Filter>
+    </ClCompile>
+    <ClCompile Include="Disaster\DisasterManager.cpp">
+      <Filter>Source Files\Disaster</Filter>
+    </ClCompile>
+    <ClCompile Include="Epidemy\EpidemyManager.cpp">
+      <Filter>Source Files\Epidemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

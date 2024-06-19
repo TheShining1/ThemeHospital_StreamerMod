@@ -54,6 +54,12 @@ void QuakeManager::ReplaceQuakeNext(QuakeNext quake)
 	*this->_quakeNext = quake;
 };
 
+void QuakeManager::DropWaitTime()
+{
+	int* quakeClock = (int*)(this->_lpModuleBaseAddress + this->_quakeNextClockOffset);
+	*quakeClock = 0;
+}
+
 bool QuakeManager::WaitDone()
 {
 	const auto start = std::chrono::steady_clock::now();

@@ -15,6 +15,7 @@ private:
   DWORD _indexUsedOffset = 0xe11db;
   DWORD _quakeNextOffset = 0xe11b7;
   DWORD _quakeStageOffset = 0xe117f;
+  DWORD _quakeNextClockOffset = 0xe117b;
 
   std::chrono::duration<int> _waitDuration = std::chrono::minutes(5);
 
@@ -29,5 +30,6 @@ public:
   static std::shared_ptr<QuakeManager> Get(DWORD lpModuleBaseAddress);
   void UnsetLastIndex();
   void ReplaceQuakeNext(QuakeNext quake);
+  void DropWaitTime();
   bool WaitDone();
 };

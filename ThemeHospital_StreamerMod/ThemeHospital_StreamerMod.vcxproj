@@ -142,11 +142,12 @@
   <ItemGroup>
     <ClInclude Include="Commands\Commands.h" />
     <ClInclude Include="Commands\ICommand.h" />
+    <ClInclude Include="Disaster\DisasterManager.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Emergency\Emergency.h" />
     <ClInclude Include="Emergency\EmergencyManager.h" />
     <ClInclude Include="Emergency\EmergencyNext.h" />
-    <ClInclude Include="Epidemy.h" />
+    <ClInclude Include="Epidemy\EpidemyManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Message.h" />
@@ -154,16 +155,18 @@
     <ClInclude Include="Quake\Quake.h" />
     <ClInclude Include="Quake\QuakeManager.h" />
     <ClInclude Include="Quake\QuakeNext.h" />
-    <ClInclude Include="VIP.h" />
+    <ClInclude Include="VIP\VIP.h" />
+    <ClInclude Include="VIP\VIPManager.h" />
     <ClInclude Include="WebSocket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Commands\Commands.cpp" />
+    <ClCompile Include="Disaster\DisasterManager.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Emergency\Emergency.cpp" />
     <ClCompile Include="Emergency\EmergencyManager.cpp" />
     <ClCompile Include="Emergency\EmergencyNext.cpp" />
-    <ClCompile Include="Epidemy.cpp" />
+    <ClCompile Include="Epidemy\EpidemyManager.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="pch.cpp">
@@ -175,7 +178,8 @@
     <ClCompile Include="Quake\Quake.cpp" />
     <ClCompile Include="Quake\QuakeManager.cpp" />
     <ClCompile Include="Quake\QuakeNext.cpp" />
-    <ClCompile Include="VIP.cpp" />
+    <ClCompile Include="VIP\VIP.cpp" />
+    <ClCompile Include="VIP\VIPManage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

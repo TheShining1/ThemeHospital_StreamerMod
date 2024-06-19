@@ -8,9 +8,12 @@ enum Commands
   Unknown,
   Close,
   Quake,
-  Emergency
+  Emergency,
+  VIP,
+  Disaster,
+  Epidemy
 };
-BOOST_DESCRIBE_ENUM(Commands, Close, Quake, Emergency)
+BOOST_DESCRIBE_ENUM(Commands, Close, Quake, Emergency, VIP, Disaster, Epidemy)
 
 class CommandsFactory
 {
@@ -61,6 +64,44 @@ public:
   BYTE Illness;
   BYTE Amount;
   BYTE PercWin;
+
+  bool Run() const override;
+};
+
+class CommandVIP : public ICommand
+{
+private:
+  BOOST_DESCRIBE_CLASS(CommandVIP, (), (Name, Username, Score, Run), (), ());
+public:
+  CommandVIP(std::string body);
+  std::string Name;
+  std::string Username;
+  int Score;
+
+  bool Run() const override;
+};
+
+class CommandEpidemy : public ICommand
+{
+private:
+  BOOST_DESCRIBE_CLASS(CommandEpidemy, (), (Name, Disease, Amount, Run), (), ());
+public:
+  CommandEpidemy(std::string body);
+  std::string Name;
+  BYTE Disease;
+  BYTE Amount;
+
+  bool Run() const override;
+};
+
+class CommandDisaster : public ICommand
+{
+private:
+  BOOST_DESCRIBE_CLASS(CommandDisaster, (), (Name, Type, Run), (), ());
+public:
+  CommandDisaster(std::string body);
+  std::string Name;
+  int Type;
 
   bool Run() const override;
 };
