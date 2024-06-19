@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <functional>
+#include "EpidemyCommand.h"
 
 typedef DWORD(__cdecl* createPatientFunc)(WORD, BYTE, BYTE);
 typedef void(__cdecl* spawnObjectFunc)(DWORD);

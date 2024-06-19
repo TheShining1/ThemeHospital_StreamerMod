@@ -1,6 +1,7 @@
 #pragma once
 #include "../Logger.h"
 #include <chrono>
+#include "VIPCommand.h"
 
 class VIPManager
 {

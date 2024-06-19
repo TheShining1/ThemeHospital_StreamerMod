@@ -50,7 +50,7 @@ void EpidemyManager::CreatePatients(BYTE disease, BYTE amount)
 
     DWORD ptPatient = createPatient(*ptStartPoint, disease, 0);
     BYTE* contagious = (BYTE*)(ptPatient + 0xAE);
-    *contagious = this->contagious;
+    *contagious = (BYTE)this->contagious;
     spawnObject(ptPatient);
 
     std::this_thread::sleep_for(std::chrono::seconds(1));

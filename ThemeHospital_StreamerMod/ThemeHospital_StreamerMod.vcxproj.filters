@@ -105,6 +105,21 @@
     <ClInclude Include="Epidemy\EpidemyManager.h">
       <Filter>Header Files\Epidemy</Filter>
     </ClInclude>
+    <ClInclude Include="Quake\QuakeCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emergency\EmergencyCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VIP\VIPCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Disaster\DisasterCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Epidemy\EpidemyCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -151,6 +166,21 @@
     </ClCompile>
     <ClCompile Include="Epidemy\EpidemyManager.cpp">
       <Filter>Source Files\Epidemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Quake\QuakeCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emergency\EmergencyCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VIP\VIPCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Disaster\DisasterCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Epidemy\EpidemyCommand.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
 #include <chrono>
 #include "../Logger.h"
 #include "QuakeNext.h"
+#include "QuakeCommand.h"
 
 class QuakeManager
 {

@@ -142,30 +142,38 @@
   <ItemGroup>
     <ClInclude Include="Commands\Commands.h" />
     <ClInclude Include="Commands\ICommand.h" />
+    <ClInclude Include="Disaster\DisasterCommand.h" />
     <ClInclude Include="Disaster\DisasterManager.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Emergency\Emergency.h" />
+    <ClInclude Include="Emergency\EmergencyCommand.h" />
     <ClInclude Include="Emergency\EmergencyManager.h" />
     <ClInclude Include="Emergency\EmergencyNext.h" />
+    <ClInclude Include="Epidemy\EpidemyCommand.h" />
     <ClInclude Include="Epidemy\EpidemyManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Quake\Quake.h" />
+    <ClInclude Include="Quake\QuakeCommand.h" />
     <ClInclude Include="Quake\QuakeManager.h" />
     <ClInclude Include="Quake\QuakeNext.h" />
     <ClInclude Include="VIP\VIP.h" />
+    <ClInclude Include="VIP\VIPCommand.h" />
     <ClInclude Include="VIP\VIPManager.h" />
     <ClInclude Include="WebSocket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Commands\Commands.cpp" />
+    <ClCompile Include="Disaster\DisasterCommand.cpp" />
     <ClCompile Include="Disaster\DisasterManager.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Emergency\Emergency.cpp" />
+    <ClCompile Include="Emergency\EmergencyCommand.cpp" />
     <ClCompile Include="Emergency\EmergencyManager.cpp" />
     <ClCompile Include="Emergency\EmergencyNext.cpp" />
+    <ClCompile Include="Epidemy\EpidemyCommand.cpp" />
     <ClCompile Include="Epidemy\EpidemyManager.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Message.cpp" />
@@ -176,9 +184,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Quake\Quake.cpp" />
+    <ClCompile Include="Quake\QuakeCommand.cpp" />
     <ClCompile Include="Quake\QuakeManager.cpp" />
     <ClCompile Include="Quake\QuakeNext.cpp" />
     <ClCompile Include="VIP\VIP.cpp" />
+    <ClCompile Include="VIP\VIPCommand.cpp" />
     <ClCompile Include="VIP\VIPManage.cpp" />
   </ItemGroup>
   <ItemGroup>

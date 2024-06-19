@@ -1,5 +1,6 @@
 #pragma once
 #include "../Logger.h"
+#include "DisasterCommand.h"
 
 class DisasterManager
 {
