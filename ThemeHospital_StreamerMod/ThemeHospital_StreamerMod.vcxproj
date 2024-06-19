@@ -152,6 +152,7 @@
     <ClInclude Include="Epidemy\EpidemyCommand.h" />
     <ClInclude Include="Epidemy\EpidemyManager.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Game\Hospital.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="pch.h" />
