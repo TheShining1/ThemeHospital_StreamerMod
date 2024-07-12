@@ -11,12 +11,18 @@
 #include "Logger.h"
 #include "WebSocket.h"
 #include "Message.h"
+
+#include "./HospitalManager/HospitalManager.h"
+
 #include "./Commands/Commands.h"
 #include "./Quake/QuakeManager.h"
 #include "./Emergency/EmergencyManager.h"
 #include "./VIP/VIPManager.h"
 #include "./Disaster/DisasterManager.h"
 #include "./Epidemy/EpidemyManager.h"
+
+DWORD lpModuleBaseAddress = 0x00400000;
+DWORD ptHospitalDataOffset = 0xdd124;
 
 namespace beast = boost::beast;
 namespace http = beast::http; 
@@ -54,6 +60,24 @@ void do_session(tcp::socket socket)
 
       LOG_DEBUG(message.App);
       LOG_DEBUG(message.CommandName);
+
+      LOG_DEBUG(offsetof(Hospital, IsOpen));
+
+      std::shared_ptr<HospitalManager> hm = HospitalManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+
+      if (!hm->IsHospitalReady())
+      {
+        boost::json::object response = {};
+        response["App"] = message.App;
+        response["ID"] = message.ID;
+        response["Complete"] = false;
+
+        std::string outgoingMessage = boost::json::serialize(response);
+        LOG_DEBUG(outgoingMessage);
+
+        ws.write(net::buffer(outgoingMessage));
+        continue;
+      }
 
       ICommand* command = CommandsFactory::Generate(message.CommandName, message.Command);
       bool complete = command->Run();
@@ -104,7 +128,8 @@ void WS_Thread(WS_Config* wsConfig)
 
       std::thread(
         &do_session,
-        std::move(socket)).detach();
+        std::move(socket)
+      ).detach();
     }
   }
   catch (const std::exception& e)
@@ -141,9 +166,6 @@ void unlockCamera(DWORD LpModuleBaseAddress)
 
 void Commands_Thread()
 {
-  DWORD lpModuleBaseAddress = 0x00400000;
-  DWORD ptHospitalDataOffset = 0xdd124;
-
   std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
   std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
   std::shared_ptr<VIPManager> vipManager = VIPManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);

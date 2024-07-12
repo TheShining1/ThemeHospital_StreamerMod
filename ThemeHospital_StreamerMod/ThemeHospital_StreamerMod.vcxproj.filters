@@ -123,6 +123,27 @@
     <ClInclude Include="Game\Hospital.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Emergency.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\VIP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Epidemic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\HospitalPolicy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UnkStuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RatHole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HospitalManager\HospitalManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -161,7 +182,7 @@
     <ClCompile Include="VIP\VIP.cpp">
       <Filter>Source Files\VIP</Filter>
     </ClCompile>
-    <ClCompile Include="VIP\VIPManage.cpp">
+    <ClCompile Include="VIP\VIPManager.cpp">
       <Filter>Source Files\VIP</Filter>
     </ClCompile>
     <ClCompile Include="Disaster\DisasterManager.cpp">
@@ -183,6 +204,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Epidemy\EpidemyCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HospitalManager\HospitalManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
