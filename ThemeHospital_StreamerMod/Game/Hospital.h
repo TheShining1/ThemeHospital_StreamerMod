@@ -149,6 +149,6 @@ struct Hospital {
   BYTE Unk_1253;
   BYTE Unk_1254;
   BYTE Unk_1255;
-  BYTE IsOpen;
+  bool IsOpen;
   WORD OpenTimer;
 };

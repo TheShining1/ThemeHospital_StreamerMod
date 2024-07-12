@@ -58,7 +58,6 @@ void do_session(tcp::socket socket)
 
       Message message = Message::Parse(incommingMessage);
 
-      LOG_DEBUG(message.App);
       LOG_DEBUG(message.CommandName);
 
       LOG_DEBUG(offsetof(Hospital, IsOpen));
@@ -67,8 +66,7 @@ void do_session(tcp::socket socket)
 
       if (!hm->IsHospitalReady())
       {
-        boost::json::object response = {};
-        response["App"] = message.App;
+        boost::json::object response = {};        
         response["ID"] = message.ID;
         response["Complete"] = false;
 
@@ -84,7 +82,6 @@ void do_session(tcp::socket socket)
       LOG_DEBUG(complete);
 
       boost::json::object response = {};
-      response["App"] = message.App;
       response["ID"] = message.ID;
       response["Complete"] = complete;
 

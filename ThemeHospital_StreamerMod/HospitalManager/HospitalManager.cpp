@@ -19,5 +19,5 @@ HospitalManager::HospitalManager(DWORD LpModuleBaseAddress, DWORD PtHospitalOffs
 
 bool HospitalManager::IsHospitalReady()
 {
-	return this->hospital->IsOpen == false && this->hospital->ReceptionistsCount > 0;
+	return this->hospital->IsOpen && this->hospital->ReceptionistsCount > 0;
 }
