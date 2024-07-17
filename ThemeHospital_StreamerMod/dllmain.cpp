@@ -30,6 +30,46 @@ namespace websocket = beast::websocket;
 namespace net = boost::asio;
 using tcp = boost::asio::ip::tcp;
 
+void processMessage(websocket::stream<tcp::socket>& ws, beast::flat_buffer buffer)
+{
+  std::string incommingMessage = beast::buffers_to_string(buffer.data());
+  LOG_DEBUG(incommingMessage);
+
+  Message message = Message::Parse(incommingMessage);
+
+  LOG_DEBUG(message.CommandName);
+
+  LOG_DEBUG(offsetof(Hospital, IsOpen));
+
+  std::shared_ptr<HospitalManager> hm = HospitalManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+
+  if (!hm->IsHospitalReady())
+  {
+    boost::json::object response = {};
+    response["ID"] = message.ID;
+    response["Complete"] = false;
+
+    std::string outgoingMessage = boost::json::serialize(response);
+    LOG_DEBUG(outgoingMessage);
+
+    ws.write(net::buffer(outgoingMessage));
+    return;
+  }
+
+  ICommand* command = CommandsFactory::Generate(message.CommandName, message.Command);
+  bool complete = command->Run();
+  LOG_DEBUG(complete);
+
+  boost::json::object response = {};
+  response["ID"] = message.ID;
+  response["Complete"] = complete;
+
+  std::string outgoingMessage = boost::json::serialize(response);
+  LOG_DEBUG(outgoingMessage);
+
+  ws.write(net::buffer(outgoingMessage));
+}
+
 void do_session(tcp::socket socket)
 {
   try
@@ -53,42 +93,7 @@ void do_session(tcp::socket socket)
       LOG_DEBUG("Waiting for message");
       ws.read(buffer);
 
-      std::string incommingMessage = beast::buffers_to_string(buffer.data());
-      LOG_DEBUG(incommingMessage);
-
-      Message message = Message::Parse(incommingMessage);
-
-      LOG_DEBUG(message.CommandName);
-
-      LOG_DEBUG(offsetof(Hospital, IsOpen));
-
-      std::shared_ptr<HospitalManager> hm = HospitalManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-
-      if (!hm->IsHospitalReady())
-      {
-        boost::json::object response = {};        
-        response["ID"] = message.ID;
-        response["Complete"] = false;
-
-        std::string outgoingMessage = boost::json::serialize(response);
-        LOG_DEBUG(outgoingMessage);
-
-        ws.write(net::buffer(outgoingMessage));
-        continue;
-      }
-
-      ICommand* command = CommandsFactory::Generate(message.CommandName, message.Command);
-      bool complete = command->Run();
-      LOG_DEBUG(complete);
-
-      boost::json::object response = {};
-      response["ID"] = message.ID;
-      response["Complete"] = complete;
-
-      std::string outgoingMessage = boost::json::serialize(response);
-      LOG_DEBUG(outgoingMessage);
-
-      ws.write(net::buffer(outgoingMessage));
+      std::thread(&processMessage, std::ref(ws), buffer).detach();
     }
   }
   catch (beast::system_error const& se)
