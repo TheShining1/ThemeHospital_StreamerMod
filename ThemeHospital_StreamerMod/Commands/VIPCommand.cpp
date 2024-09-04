@@ -14,37 +14,35 @@ bool VIPCommand::Run(std::shared_ptr<GameManager> gameManager) const
 
   gameManager->vipSetDays();
 
-  while (gameManager->GetVIPStage() != VIPStages::Invitation) {};
+  while (gameManager->GetVIPStage() != VIPStages::Invitation) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  };
 
   const char* oldName = gameManager->VIPSwapName(this->Username.c_str());
 
-  while (gameManager->GetVIPStage() != VIPStages::Arriving) {};
+  while (gameManager->GetVIPStage() != VIPStages::Arriving) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  };
 
   gameManager->VIPDropWaitTime();
 
-  while (gameManager->GetVIPStage() != VIPStages::Departed) {};
+  while (gameManager->GetVIPStage() != VIPStages::Departed) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  };
 
   gameManager->VIPSetScore(this->Score);
 
-  while (gameManager->GetVIPStage() != VIPStages::None) {};
-  while (!*gameManager->isFaxOpen) {}
-  while (*gameManager->isFaxOpen) {}
+  while (gameManager->GetVIPStage() != VIPStages::None) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  };
+  while (!*gameManager->isFaxOpen) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  }
+  while (*gameManager->isFaxOpen) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+  }
 
   gameManager->VIPSwapName(oldName);
 
-  //std::shared_ptr<VIPManager> vm = VIPManager::Get(0x00400000, 0xdd124);
-  //vm->SetDays();
-  //while (vm->GetStage() != 1) {};
-  //const char* nameOld = vm->SwapName(Username.c_str());
-  //while (vm->GetStage() != 2) {};
-  //vm->DropWaitTime();
-  //while (vm->GetStage() != 4) {};
-  //vm->SetScore(Score);
-  //while (vm->GetStage() != 0) {}
-  //while (!vm->IsFaxOpen()) {}
-  //while (vm->IsFaxOpen()) {}
-  //vm->SwapName(nameOld);
-
-  //return vm->WaitDone();
-  return false;
+  return true;
 }
