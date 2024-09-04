@@ -21,8 +21,8 @@ Logger::Logger()
   using namespace logging::trivial;
   src::severity_logger< severity_level > lg;
 
-  auto console_sink = logging::add_console_log(std::cout, keywords::format = "[%TimeStamp%]: %Message%");
-  console_sink->locked_backend()->auto_flush(true);
+  //auto console_sink = logging::add_console_log(std::cout, keywords::format = "[%TimeStamp%]: %Message%");
+  //console_sink->locked_backend()->auto_flush(true);
 
   auto file_sink = logging::add_file_log("logs.log", keywords::format = "[%TimeStamp%]: %Message%");
   file_sink->locked_backend()->auto_flush(true);

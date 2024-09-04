@@ -12,17 +12,10 @@
 #include "WebSocket.h"
 #include "Message.h"
 
-#include "./HospitalManager/HospitalManager.h"
-
+#include "./GameManager/GameManager.h"
 #include "./Commands/Commands.h"
-#include "./Quake/QuakeManager.h"
-#include "./Emergency/EmergencyManager.h"
-#include "./VIP/VIPManager.h"
-#include "./Disaster/DisasterManager.h"
-#include "./Epidemy/EpidemyManager.h"
 
-DWORD lpModuleBaseAddress = 0x00400000;
-DWORD ptHospitalDataOffset = 0xdd124;
+HMODULE hModuleSelf;
 
 namespace beast = boost::beast;
 namespace http = beast::http; 
@@ -39,11 +32,9 @@ void processMessage(websocket::stream<tcp::socket>& ws, beast::flat_buffer buffe
 
   LOG_DEBUG(message.CommandName);
 
-  LOG_DEBUG(offsetof(Hospital, IsOpen));
+  std::shared_ptr<GameManager> gm = GameManager::Get();
 
-  std::shared_ptr<HospitalManager> hm = HospitalManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-
-  if (!hm->IsHospitalReady())
+  if (message.CommandName != Commands::Close && !gm->IsHospitalReady())
   {
     boost::json::object response = {};
     response["ID"] = message.ID;
@@ -57,7 +48,7 @@ void processMessage(websocket::stream<tcp::socket>& ws, beast::flat_buffer buffe
   }
 
   ICommand* command = CommandsFactory::Generate(message.CommandName, message.Command);
-  bool complete = command->Run();
+  bool complete = command->Run(gm);
   LOG_DEBUG(complete);
 
   boost::json::object response = {};
@@ -154,27 +145,66 @@ HANDLE CreateConsole()
   return GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
-void unlockCamera(DWORD LpModuleBaseAddress)
+//void Commands_Thread()
+//{
+//  //std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
+//  //std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+//  //std::shared_ptr<VIPManager> vipManager = VIPManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+//  //std::shared_ptr<DisasterManager> disasterManager = DisasterManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
+//  //std::shared_ptr<EpidemyManager> epidemyManager = EpidemyManager::Get(lpModuleBaseAddress);
+//
+//  unlockCamera(lpModuleBaseAddress);
+//}
+
+static void Init()
 {
-  DWORD cameraMinPosOffset = 0xe11c2;
-  DWORD cameraMaxPosOffset = 0xe11c4;
+  LOG_DEBUG("Init");
 
-  WORD* cameraMinPos = (WORD*)(LpModuleBaseAddress + cameraMinPosOffset);
-  WORD* cameraMaxPos = (WORD*)(LpModuleBaseAddress + cameraMaxPosOffset);
+  uint32_t lpModuleBaseAddress = 0x00400000;
 
-  *cameraMinPos = 0x0;
-  *cameraMaxPos = 0xFFFF;
-}
+  GlobalsOffset globalsOffset = {
+    .langTextSections = 0xdaf60,
+    .howContagious = 0xc47ce,
+    .mayorLaunch = 0xc4828,
+    .isFaxOpen = 0xdefb0,
+    .hospital = 0xdd124,
+    .isPaused = 0xe10b1,
+    .cameraPositionLimit = 0xe11c2,
+    .rooms = 0xe5208
+  };
 
-void Commands_Thread()
-{
-  std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
-  std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-  std::shared_ptr<VIPManager> vipManager = VIPManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-  std::shared_ptr<DisasterManager> disasterManager = DisasterManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-  std::shared_ptr<EpidemyManager> epidemyManager = EpidemyManager::Get(lpModuleBaseAddress);
+  DisastersOffsets disastersOffsets = {
+    .VomitLimit = 0xc481a,
+    .DoctorPopupText = 0xdcb92
+  };
 
-  unlockCamera(lpModuleBaseAddress);
+  QuakeOffsets quakeOffsets = {
+    .NextClock = 0xe117b,
+    .Stage = 0xe117f,
+    .Next = 0xe11b7,
+    .IndexUsed = 0xe11db
+  };
+
+  EmergencyOffsets emergencyOffsets = {
+     .Next = 0xe11ad,
+     .SkippedCount = 0xe11ce,
+     .IndexUsed = 0xe11eb
+  };
+
+  EpidemicOffsets epidemicOffsets = {
+    .createPatientObjFunc = 0x36bf0,
+    .spawnObjectFunc = 0x6c120
+  };
+
+  GameOffsets gameOffset = {
+    .globalsOffset = globalsOffset,
+    .disastersOffsets = disastersOffsets,
+    .emergencyOffsets = emergencyOffsets,
+    .quakeOffsets = quakeOffsets,
+    .epidemicOffsets = epidemicOffsets
+  };
+
+  GameManager::Get(lpModuleBaseAddress, gameOffset);
 }
 
 void hookThread()
@@ -186,12 +216,15 @@ void hookThread()
 
   LOG_DEBUG("Theme Hospital Streamer Mod DLL injecting");
 
+  Init();
+
   WS_Config* wsConfig = new WS_Config{ "127.0.0.1", "9099" };
 
   CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WS_Thread, wsConfig, 0, NULL);
-  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Commands_Thread, NULL, 0, NULL);
+  //CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Commands_Thread, NULL, 0, NULL);
 
   LOG_DEBUG("Theme Hospital Streamer Mod DLL injected");
+  LOG_DEBUG(hModuleSelf);
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -199,6 +232,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
                        LPVOID lpReserved
                      )
 {
+    hModuleSelf = hModule;
+    
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:

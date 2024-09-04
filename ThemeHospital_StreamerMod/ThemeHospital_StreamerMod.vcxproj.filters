@@ -13,41 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Quake">
-      <UniqueIdentifier>{9376d5b1-bbc0-423a-91b1-63e42cc19299}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Quake">
-      <UniqueIdentifier>{2b067aa5-a7a5-4dac-8669-ddf2cdcf4925}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Commands">
       <UniqueIdentifier>{62740871-db2a-418e-80da-c32dbbd6df33}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Commands">
       <UniqueIdentifier>{54ff8c2d-cef7-4907-b4d6-1018902af126}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Emergency">
-      <UniqueIdentifier>{4219d1de-31c4-47ed-906f-12db59659798}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Emergency">
-      <UniqueIdentifier>{5e86a012-c6cf-4fab-9094-3d142c0c120b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\VIP">
-      <UniqueIdentifier>{1b18d80f-f37d-4e70-922d-d2377319e4e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\VIP">
-      <UniqueIdentifier>{74eeea89-72bd-48e5-bbbe-49fe10f83751}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Disaster">
-      <UniqueIdentifier>{4ee00981-d8e5-4ad2-a99a-4a22ca24a73c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Disaster">
-      <UniqueIdentifier>{f3beb6f9-2086-41fa-b89a-d422b9535e9d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Epidemy">
-      <UniqueIdentifier>{cecb78e4-78d3-4ed8-acfe-0ffc06919bac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Epidemy">
-      <UniqueIdentifier>{269c9603-dcb2-4107-af3f-fb22773b8ce9}</UniqueIdentifier>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{29ae6226-8c60-4176-a83c-95005ce66db0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,15 +36,6 @@
     <ClInclude Include="WebSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Quake\Quake.h">
-      <Filter>Header Files\Quake</Filter>
-    </ClInclude>
-    <ClInclude Include="Quake\QuakeManager.h">
-      <Filter>Header Files\Quake</Filter>
-    </ClInclude>
-    <ClInclude Include="Quake\QuakeNext.h">
-      <Filter>Header Files\Quake</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,64 +48,64 @@
     <ClInclude Include="Commands\ICommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="Emergency\Emergency.h">
-      <Filter>Header Files\Emergency</Filter>
-    </ClInclude>
-    <ClInclude Include="Emergency\EmergencyManager.h">
-      <Filter>Header Files\Emergency</Filter>
-    </ClInclude>
-    <ClInclude Include="Emergency\EmergencyNext.h">
-      <Filter>Header Files\Emergency</Filter>
-    </ClInclude>
-    <ClInclude Include="VIP\VIP.h">
-      <Filter>Header Files\VIP</Filter>
-    </ClInclude>
-    <ClInclude Include="VIP\VIPManager.h">
-      <Filter>Header Files\VIP</Filter>
-    </ClInclude>
-    <ClInclude Include="Disaster\DisasterManager.h">
-      <Filter>Header Files\Disaster</Filter>
-    </ClInclude>
-    <ClInclude Include="Epidemy\EpidemyManager.h">
-      <Filter>Header Files\Epidemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Quake\QuakeCommand.h">
+    <ClInclude Include="GameManager\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Emergency\EmergencyCommand.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Commands\DisasterCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="VIP\VIPCommand.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Commands\EmergencyCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="Disaster\DisasterCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Epidemy\EpidemyCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Hospital.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Commands\EpidemicCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Game\Emergency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\VIP.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Epidemic.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Hospital.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\HospitalPolicy.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UnkStuff.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Game\Quake.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\QuakeCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Game\RatHole.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UnkStuff.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\VIP.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\VIPCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Disasters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HospitalManager\HospitalManager.h">
+    <ClInclude Include="Game\Rooms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands\UnlockCameraCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -152,15 +116,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quake\Quake.cpp">
-      <Filter>Source Files\Quake</Filter>
-    </ClCompile>
-    <ClCompile Include="Quake\QuakeManager.cpp">
-      <Filter>Source Files\Quake</Filter>
-    </ClCompile>
-    <ClCompile Include="Quake\QuakeNext.cpp">
-      <Filter>Source Files\Quake</Filter>
-    </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -170,43 +125,25 @@
     <ClCompile Include="Commands\Commands.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Emergency\Emergency.cpp">
-      <Filter>Source Files\Emergency</Filter>
-    </ClCompile>
-    <ClCompile Include="Emergency\EmergencyManager.cpp">
-      <Filter>Source Files\Emergency</Filter>
-    </ClCompile>
-    <ClCompile Include="Emergency\EmergencyNext.cpp">
-      <Filter>Source Files\Emergency</Filter>
-    </ClCompile>
-    <ClCompile Include="VIP\VIP.cpp">
-      <Filter>Source Files\VIP</Filter>
-    </ClCompile>
-    <ClCompile Include="VIP\VIPManager.cpp">
-      <Filter>Source Files\VIP</Filter>
-    </ClCompile>
-    <ClCompile Include="Disaster\DisasterManager.cpp">
-      <Filter>Source Files\Disaster</Filter>
-    </ClCompile>
-    <ClCompile Include="Epidemy\EpidemyManager.cpp">
-      <Filter>Source Files\Epidemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Quake\QuakeCommand.cpp">
+    <ClCompile Include="GameManager\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Emergency\EmergencyCommand.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Commands\DisasterCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="VIP\VIPCommand.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Commands\EmergencyCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Disaster\DisasterCommand.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Commands\EpidemicCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="Epidemy\EpidemyCommand.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Commands\QuakeCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="HospitalManager\HospitalManager.cpp">
+    <ClCompile Include="Commands\VIPCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands\UnlockCameraCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

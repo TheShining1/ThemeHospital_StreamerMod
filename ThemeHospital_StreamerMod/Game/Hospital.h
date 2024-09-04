@@ -1,13 +1,18 @@
 #pragma once
 #include <minwindef.h>
 
-#pragma pack(1)
+#pragma pack(push, 1)
 
+#include "./Disasters.h"
+#include "./Quake.h"
 #include "./Emergency.h"
 #include "./VIP.h"
 #include "./Epidemic.h"
 #include "./HospitalPolicy.h"
 #include "./RatHole.h"
+#include "./Rooms.h"
+#include "./GameObject.h"
+#include "./Text.h"
 
 #include "./UnkStuff.h"
 
@@ -58,9 +63,9 @@ struct Hospital {
   struct VIP VIP;
   struct Epidemic Epidemic;
   unsigned short daysFromLastDisaster;
-  short heatLevelPrev;
+  int16_t heatLevelPrev;
   BYTE disasterType;
-  BYTE disasterLength;
+  uint8_t disasterDuration;
   BYTE Unk_215;
   BYTE Unk_216;
   struct HospitalPolicy HospitalPolicy;
@@ -88,8 +93,8 @@ struct Hospital {
   WORD Unk_c8e;
   WORD Unk_c90;
   short radiatorsCount;
-  BYTE heatLevel;
-  BYTE heatLevelLock;
+  int8_t heatLevel;
+  bool heatLevelLock;
   BYTE Unk_c96;
   BYTE Unk_c97;
   WORD Unk_c98;
@@ -152,3 +157,4 @@ struct Hospital {
   bool IsOpen;
   WORD OpenTimer;
 };
+#pragma pack(pop)

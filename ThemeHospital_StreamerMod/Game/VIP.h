@@ -1,12 +1,20 @@
 #pragma once
-#include <minwindef.h>
+
+enum VIPStages : uint8_t
+{
+  None,
+  Invitation,
+  Arriving,
+  Touring,
+  Departed,
+};
 
 struct VIP {
-  DWORD GameClock;
-  unsigned short ObjectIndex;
-  BYTE NameIndex;
-  BYTE Stage;
-  unsigned short Score;
-  WORD vipUnk;
-  unsigned short DaysFromLast;
+  uint32_t GameClock;
+  uint16_t ObjectIndex;
+  uint8_t NameIndex;
+  VIPStages Stage;
+  uint16_t Score;
+  int16_t vipUnk;
+  uint16_t DaysFromLast;
 };
