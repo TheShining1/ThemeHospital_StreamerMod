@@ -10,6 +10,8 @@
 #include "EpidemicCommand.h"
 #include "QuakeCommand.h"
 #include "VIPCommand.h"
+#include "PissCommand.h"
+#include "LeaveCommand.h"
 
 enum Commands
 {
@@ -21,8 +23,10 @@ enum Commands
   VIP,
   Disaster,
   Epidemic,
+  Piss,
+  Leave
 };
-BOOST_DESCRIBE_ENUM(Commands, Unknown, Close, UnlockCamera, Quake, Emergency, VIP, Disaster, Epidemic)
+BOOST_DESCRIBE_ENUM(Commands, Unknown, Close, UnlockCamera, Quake, Emergency, VIP, Disaster, Epidemic, Piss, Leave)
 
 class CommandsFactory
 {

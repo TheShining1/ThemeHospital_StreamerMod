@@ -165,6 +165,8 @@ static void Init()
   GlobalsOffset globalsOffset = {
     .langTextSections = 0xdaf60,
     .howContagious = 0xc47ce,
+    .leaveMax = 0xc4808,
+    .bowelOverflows = 0xc4818,
     .mayorLaunch = 0xc4828,
     .isFaxOpen = 0xdefb0,
     .hospital = 0xdd124,

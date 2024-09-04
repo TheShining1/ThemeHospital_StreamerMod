@@ -168,6 +168,8 @@
     <ClInclude Include="Commands\EmergencyCommand.h" />
     <ClInclude Include="Commands\EpidemicCommand.h" />
     <ClInclude Include="Commands\ICommand.h" />
+    <ClInclude Include="Commands\LeaveCommand.h" />
+    <ClInclude Include="Commands\PissCommand.h" />
     <ClInclude Include="Commands\UnlockCameraCommand.h" />
     <ClInclude Include="Commands\VIPCommand.h" />
     <ClInclude Include="dllmain.h" />
@@ -197,6 +199,8 @@
     <ClCompile Include="Commands\DisasterCommand.cpp" />
     <ClCompile Include="Commands\EmergencyCommand.cpp" />
     <ClCompile Include="Commands\EpidemicCommand.cpp" />
+    <ClCompile Include="Commands\LeaveCommand.cpp" />
+    <ClCompile Include="Commands\PissCommand.cpp" />
     <ClCompile Include="Commands\UnlockCameraCommand.cpp" />
     <ClCompile Include="Commands\VIPCommand.cpp" />
     <ClCompile Include="dllmain.cpp" />

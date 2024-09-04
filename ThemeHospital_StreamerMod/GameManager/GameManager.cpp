@@ -34,6 +34,8 @@ GameManager::GameManager(uint32_t LpModuleBaseAddress, GameOffsets gameOffsets)
 void GameManager::setGlobals(uint32_t LpModuleBaseAddress, GlobalsOffset globalsOffset)
 {
 	this->howContagious = (uint8_t*)(LpModuleBaseAddress + globalsOffset.howContagious);
+	this->leaveMax = (uint16_t*)(LpModuleBaseAddress + globalsOffset.leaveMax);
+	this->bowelOverflows = (uint16_t*)(LpModuleBaseAddress + globalsOffset.bowelOverflows);
 	this->mayorLaunch = (uint16_t*)(LpModuleBaseAddress + globalsOffset.mayorLaunch);
 	this->isFaxOpen = (bool*)(LpModuleBaseAddress + globalsOffset.isFaxOpen);
 	this->hospital = *(Hospital**)(LpModuleBaseAddress + globalsOffset.hospital);

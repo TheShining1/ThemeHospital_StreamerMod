@@ -32,6 +32,12 @@ ICommand* CommandsFactory::Generate(Commands name, std::string body)
   case Commands::Epidemic:
     return new EpidemicCommand(body);
     break;
+  case Commands::Piss:
+    return new PissCommand(body);
+    break;
+  case Commands::Leave:
+    return new LeaveCommand(body);
+    break;
   default:
     return new UnknownCommand();
     break;

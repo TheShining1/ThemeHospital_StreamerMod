@@ -29,6 +29,8 @@ public:
   std::array<Room, 25>* rooms;
   CameraPosition* cameraPositionLimit;
   uint8_t* howContagious;
+  uint16_t* leaveMax;
+  uint16_t* bowelOverflows;
   bool* isFaxOpen;
 
   bool IsHospitalReady();
