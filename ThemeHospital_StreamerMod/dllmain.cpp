@@ -163,15 +163,16 @@ static void Init()
   uint32_t lpModuleBaseAddress = 0x00400000;
 
   GlobalsOffset globalsOffset = {
-    .langTextSections = 0xdaf60,
     .howContagious = 0xc47ce,
     .leaveMax = 0xc4808,
     .bowelOverflows = 0xc4818,
     .mayorLaunch = 0xc4828,
+    .langTextSections = 0xdaf60,
     .isFaxOpen = 0xdefb0,
     .hospital = 0xdd124,
     .isPaused = 0xe10b1,
     .cameraPositionLimit = 0xe11c2,
+    .gameClock = 0xe48a8,
     .rooms = 0xe5208
   };
 

@@ -14,9 +14,10 @@ bool PissCommand::Run(std::shared_ptr<GameManager> gameManager) const
 
   uint16_t oldValue = *gameManager->bowelOverflows;
 
-  *gameManager->bowelOverflows = 0;
+  *gameManager->bowelOverflows = 1;
 
-  std::this_thread::sleep_for(std::chrono::seconds(this->Duration)); // TODO change to game_clock check
+  uint32_t endGameClock = *gameManager->gameClock + this->Duration * TicksPerDay;
+  while (endGameClock > *gameManager->gameClock) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
 
   *gameManager->bowelOverflows = oldValue;
 

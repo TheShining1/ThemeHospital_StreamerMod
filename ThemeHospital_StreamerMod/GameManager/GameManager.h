@@ -24,6 +24,7 @@ public:
   static std::shared_ptr<GameManager> Get();
   static std::shared_ptr<GameManager> Get(uint32_t LpModuleBaseAddress, GameOffsets gameOffsets);
 
+  uint32_t* gameClock;
   LangTextSections* langTextSections;
   Hospital* hospital;
   std::array<Room, 25>* rooms;
