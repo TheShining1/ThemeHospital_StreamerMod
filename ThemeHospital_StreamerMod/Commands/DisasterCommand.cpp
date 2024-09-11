@@ -12,14 +12,16 @@ bool DisasterCommand::Run(std::shared_ptr<GameManager> gameManager) const
 {
   LOG_DEBUG("Running Disaster command");
 
+  uint16_t oldVomitLimit;
+
   switch (this->Type)
   {
-  case BoilerDown:
-  case BoilerUp:
+  case DisasterType::BoilerDown:
+  case DisasterType::BoilerUp:
     gameManager->BoilerBreak(this->Type);
     break;
-  case VomitWave:
-    gameManager->VomitWave();
+  case DisasterType::VomitWave:
+    oldVomitLimit = gameManager->SwapVomitLimit(1);
   }
 
   gameManager->SetPopup(this->Type);
@@ -27,29 +29,11 @@ bool DisasterCommand::Run(std::shared_ptr<GameManager> gameManager) const
   gameManager->SetDisasterType(this->Type);
   gameManager->ResetDisasterDays();
 
-  /*std::shared_ptr<DisasterManager> dm = DisasterManager::Get(0x00400000, 0xdd124);
-
-  short oldLimit = 0;
-  if (this->Type == 1 || this->Type == 2)
-  {
-    dm->BreakBoiler(this->Type);
-  }
-  else {
-    oldLimit = dm->SwapVomitLimit(0);
+  while (gameManager->GetDisasterType() != DisasterType::NoDisaster) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
+  
+  if (this->Type == DisasterType::VomitWave) {
+    gameManager->SwapVomitLimit(oldVomitLimit);
   }
 
-  dm->SetPopup(this->Type);
-  dm->SetLength();
-  dm->SetType(this->Type);
-
-  dm->ResetDays();
-
-  if (this->Type == 3)
-  {
-    while (dm->GetType() != 0) {}
-    dm->SwapVomitLimit(oldLimit);
-  }
-
-  return dm->WaitDone();*/
-  return false;
+  return true;
 }

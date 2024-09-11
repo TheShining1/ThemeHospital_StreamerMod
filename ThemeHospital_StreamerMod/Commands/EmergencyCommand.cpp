@@ -26,6 +26,8 @@ bool EmergencyCommand::Run(std::shared_ptr<GameManager> gameManager) const
   gameManager->emergencySkippedCount--;
   *gameManager->emergencyNext = emergencyNext;
 
-  //return em->WaitDone();
-  return false;
+  while(gameManager->hospital->Emergency.TimeLeft == 0) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
+  while(gameManager->hospital->Emergency.TimeLeft != 0 && gameManager->hospital->Emergency.Stage != 0) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
+
+  return true;
 }

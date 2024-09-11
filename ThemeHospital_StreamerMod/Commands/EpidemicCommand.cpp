@@ -13,10 +13,9 @@ bool EpidemicCommand::Run(std::shared_ptr<GameManager> gameManager) const
   LOG_DEBUG("Running Epidemy command");
 
   gameManager->CreatePatients(this->Disease, this->Amount);
-  //std::shared_ptr<EpidemyManager> em = EpidemyManager::Get(0x00400000);
 
-  //em->CreatePatients(this->Disease, this->Amount);
+  while (gameManager->hospital->Epidemic.TimeLeft == 0) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
+  while (gameManager->hospital->Epidemic.TimeLeft != 0 && gameManager->hospital->Epidemic.Stage != 0) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
 
-  //return em->WaitDone();
-  return false;
+  return true;
 }

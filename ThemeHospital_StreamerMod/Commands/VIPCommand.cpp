@@ -32,7 +32,7 @@ bool VIPCommand::Run(std::shared_ptr<GameManager> gameManager) const
 
   gameManager->VIPSetScore(this->Score);
 
-  while (gameManager->GetVIPStage() != VIPStages::None) {
+  while (gameManager->GetVIPStage() != VIPStages::NoVIP) {
     std::this_thread::sleep_for(std::chrono::seconds(1));
   };
   while (!*gameManager->isFaxOpen) {

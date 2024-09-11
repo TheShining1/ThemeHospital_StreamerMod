@@ -12,11 +12,10 @@ bool QuakeCommand::Run(std::shared_ptr<GameManager> gameManager) const
 {
   LOG_DEBUG("Running quake command");
 
-  QuakeNext qn = QuakeNext(this->GameClock, this->Severity, this->Enabled);
+  *gameManager->quakeNext = QuakeNext(this->GameClock, this->Severity, this->Enabled);
 
   gameManager->quakeUnsetLastIndex();
 
-  *gameManager->quakeNext = qn;
   *gameManager->quakeNextClock = 0;
 
   //std::shared_ptr<QuakeManager> qm = QuakeManager::Get(0x00400000);

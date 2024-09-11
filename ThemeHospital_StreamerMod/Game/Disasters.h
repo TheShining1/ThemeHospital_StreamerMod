@@ -9,11 +9,12 @@ struct DisastersOffsets
 
 enum DisasterType : uint8_t
 {
-	BoilerDown = 1,
+	NoDisaster,
+	BoilerDown,
 	BoilerUp,
 	VomitWave
 };
-BOOST_DESCRIBE_ENUM(DisasterType, BoilerDown, BoilerUp, VomitWave)
+BOOST_DESCRIBE_ENUM(DisasterType, NoDisaster, BoilerDown, BoilerUp, VomitWave)
 
 const char8_t HEATMIN = 0;
 const char8_t HEATMAX = 10;

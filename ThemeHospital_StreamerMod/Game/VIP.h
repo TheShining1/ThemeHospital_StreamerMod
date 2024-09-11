@@ -2,7 +2,7 @@
 
 enum VIPStages : uint8_t
 {
-  None,
+  NoVIP,
   Invitation,
   Arriving,
   Touring,

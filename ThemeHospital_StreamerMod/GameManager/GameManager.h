@@ -40,9 +40,10 @@ public:
   uint16_t* doctorPopupText;
   uint16_t* vomitLimit;
   void BoilerBreak(uint8_t type);
-  void VomitWave();
+  uint16_t SwapVomitLimit(uint16_t newLimit);
   void SetPopup(uint16_t index);
   void SetDisasterDuration();
+  uint8_t GetDisasterType();
   void SetDisasterType(uint8_t type);
   void ResetDisasterDays();
 #pragma endregion

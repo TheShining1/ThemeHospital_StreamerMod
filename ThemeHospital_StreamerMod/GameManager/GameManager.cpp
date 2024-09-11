@@ -68,9 +68,11 @@ void GameManager::BoilerBreak(uint8_t type)
 	}
 }
 
-void GameManager::VomitWave()
+uint16_t GameManager::SwapVomitLimit(uint16_t newLimit)
 {
-	this->vomitLimit = 0;
+	uint16_t oldLimit = *this->vomitLimit;
+	*this->vomitLimit = newLimit;
+	return oldLimit;
 }
 
 void GameManager::SetPopup(uint16_t index)
@@ -88,6 +90,11 @@ void GameManager::SetDisasterType(uint8_t type)
 {
 	this->hospital->disasterType = type;
 };
+
+uint8_t GameManager::GetDisasterType()
+{
+	return this->hospital->disasterType;
+}
 
 void GameManager::ResetDisasterDays()
 {
