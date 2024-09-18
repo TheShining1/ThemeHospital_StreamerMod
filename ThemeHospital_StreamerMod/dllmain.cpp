@@ -157,69 +157,25 @@ HANDLE CreateConsole()
 //  unlockCamera(lpModuleBaseAddress);
 //}
 
-void Init()
+bool Init()
 {
   LOG_DEBUG("Init");
 
   std::ifstream config = std::ifstream("ThemeHospital_StreamerMod_config.json", std::ifstream::binary);
-  //LOG_DEBUG(config.rdbuf());
-  //uint32_t lpModuleBaseAddress = 0x00400000;
 
-  //GlobalsOffset globalsOffset = {
-  //  .howContagious = 0xc47ce,
-  //  .leaveMax = 0xc4808,
-  //  .bowelOverflows = 0xc4818,
-  //  .mayorLaunch = 0xc4828,
-  //  .langTextSections = 0xdaf60,
-  //  .isFaxOpen = 0xdefb0,
-  //  .hospital = 0xdd124,
-  //  .isPaused = 0xe10b1,
-  //  .cameraPositionLimit = 0xe11c2,
-  //  .gameClock = 0xe48a8,
-  //  .rooms = 0xe5208
-  //};
-  //GlobalsOffset globalsOffset = {};
   GameOffsets gameOffset = {};
   boost::system::error_code ec;
 
   boost::json::parse_into(gameOffset, config, ec);
   if (ec.failed())
   {
+    LOG_DEBUG("Can't read config");
     LOG_DEBUG(ec.message());
+    return false;
   }
 
-  /*DisastersOffsets disastersOffsets = {
-    .VomitLimit = 0xc481a,
-    .DoctorPopupText = 0xdcb92
-  };
-
-  QuakeOffsets quakeOffsets = {
-    .NextClock = 0xe117b,
-    .Stage = 0xe117f,
-    .Next = 0xe11b7,
-    .IndexUsed = 0xe11db
-  };
-
-  EmergencyOffsets emergencyOffsets = {
-     .Next = 0xe11ad,
-     .SkippedCount = 0xe11ce,
-     .IndexUsed = 0xe11eb
-  };
-
-  EpidemicOffsets epidemicOffsets = {
-    .createPatientObjFunc = 0x36bf0,
-    .spawnObjectFunc = 0x6c120
-  };
-
-  GameOffsets gameOffset = {
-    .globalsOffset = globalsOffset,
-    .disastersOffsets = disastersOffsets,
-    .emergencyOffsets = emergencyOffsets,
-    .quakeOffsets = quakeOffsets,
-    .epidemicOffsets = epidemicOffsets
-  };*/
-
   GameManager::Get(gameOffset.lpModuleBaseAddress, gameOffset);
+  return true;
 }
 
 void hookThread()
@@ -231,7 +187,7 @@ void hookThread()
 
   LOG_DEBUG("Theme Hospital Streamer Mod DLL injecting");
 
-  Init();
+  if (!Init()) return;
 
   WS_Config* wsConfig = new WS_Config{ "127.0.0.1", "9099" };
 
