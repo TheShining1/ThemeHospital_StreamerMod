@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe.hpp>
 #include <minwindef.h>
 
 struct EmergencyOffsets
@@ -7,6 +8,7 @@ struct EmergencyOffsets
   uint32_t SkippedCount;  // 0xe11ce;
   uint32_t IndexUsed;     // 0xe11eb;
 };
+BOOST_DESCRIBE_STRUCT(EmergencyOffsets, (), (Next, SkippedCount, IndexUsed));
 
 struct Emergency {
   uint16_t TimeLeft;

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include "dllmain.h"
 
@@ -18,7 +19,7 @@
 HMODULE hModuleSelf;
 
 namespace beast = boost::beast;
-namespace http = beast::http; 
+namespace http = beast::http;
 namespace websocket = beast::websocket;
 namespace net = boost::asio;
 using tcp = boost::asio::ip::tcp;
@@ -71,8 +72,8 @@ void do_session(tcp::socket socket)
       [](websocket::response_type& res)
       {
         res.set(http::field::server,
-        std::string(BOOST_BEAST_VERSION_STRING) +
-        " websocket-server-sync");
+          std::string(BOOST_BEAST_VERSION_STRING) +
+          " websocket-server-sync");
       }));
 
     ws.accept();
@@ -156,27 +157,38 @@ HANDLE CreateConsole()
 //  unlockCamera(lpModuleBaseAddress);
 //}
 
-static void Init()
+void Init()
 {
   LOG_DEBUG("Init");
 
-  uint32_t lpModuleBaseAddress = 0x00400000;
+  std::ifstream config = std::ifstream("ThemeHospital_StreamerMod_config.json", std::ifstream::binary);
+  //LOG_DEBUG(config.rdbuf());
+  //uint32_t lpModuleBaseAddress = 0x00400000;
 
-  GlobalsOffset globalsOffset = {
-    .howContagious = 0xc47ce,
-    .leaveMax = 0xc4808,
-    .bowelOverflows = 0xc4818,
-    .mayorLaunch = 0xc4828,
-    .langTextSections = 0xdaf60,
-    .isFaxOpen = 0xdefb0,
-    .hospital = 0xdd124,
-    .isPaused = 0xe10b1,
-    .cameraPositionLimit = 0xe11c2,
-    .gameClock = 0xe48a8,
-    .rooms = 0xe5208
-  };
+  //GlobalsOffset globalsOffset = {
+  //  .howContagious = 0xc47ce,
+  //  .leaveMax = 0xc4808,
+  //  .bowelOverflows = 0xc4818,
+  //  .mayorLaunch = 0xc4828,
+  //  .langTextSections = 0xdaf60,
+  //  .isFaxOpen = 0xdefb0,
+  //  .hospital = 0xdd124,
+  //  .isPaused = 0xe10b1,
+  //  .cameraPositionLimit = 0xe11c2,
+  //  .gameClock = 0xe48a8,
+  //  .rooms = 0xe5208
+  //};
+  //GlobalsOffset globalsOffset = {};
+  GameOffsets gameOffset = {};
+  boost::system::error_code ec;
 
-  DisastersOffsets disastersOffsets = {
+  boost::json::parse_into(gameOffset, config, ec);
+  if (ec.failed())
+  {
+    LOG_DEBUG(ec.message());
+  }
+
+  /*DisastersOffsets disastersOffsets = {
     .VomitLimit = 0xc481a,
     .DoctorPopupText = 0xdcb92
   };
@@ -205,9 +217,9 @@ static void Init()
     .emergencyOffsets = emergencyOffsets,
     .quakeOffsets = quakeOffsets,
     .epidemicOffsets = epidemicOffsets
-  };
+  };*/
 
-  GameManager::Get(lpModuleBaseAddress, gameOffset);
+  GameManager::Get(gameOffset.lpModuleBaseAddress, gameOffset);
 }
 
 void hookThread()
@@ -230,23 +242,23 @@ void hookThread()
   LOG_DEBUG(hModuleSelf);
 }
 
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
+BOOL APIENTRY DllMain(HMODULE hModule,
+  DWORD  ul_reason_for_call,
+  LPVOID lpReserved
+)
 {
-    hModuleSelf = hModule;
-    
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-      CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)hookThread, NULL, 0, NULL);
-      break;
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
+  hModuleSelf = hModule;
+
+  switch (ul_reason_for_call)
+  {
+  case DLL_PROCESS_ATTACH:
+    CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)hookThread, NULL, 0, NULL);
+    break;
+  case DLL_THREAD_ATTACH:
+  case DLL_THREAD_DETACH:
+  case DLL_PROCESS_DETACH:
+    break;
+  }
+  return TRUE;
 }
 

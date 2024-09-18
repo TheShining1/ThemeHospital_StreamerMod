@@ -6,6 +6,7 @@ struct DisastersOffsets
 	uint32_t VomitLimit;			// 0xc481a
 	uint32_t DoctorPopupText;	// 0xdcb92
 };
+BOOST_DESCRIBE_STRUCT(DisastersOffsets, (), (VomitLimit, DoctorPopupText))
 
 enum DisasterType : uint8_t
 {

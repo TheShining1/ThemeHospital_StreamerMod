@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/describe.hpp>
 #include "GameObject.h"
 
 typedef GameObject* (__cdecl* createPatientFunc)(uint16_t, uint8_t, uint8_t);
@@ -8,6 +9,7 @@ struct EpidemicOffsets {
   uint32_t createPatientObjFunc;  // 0x36bf0
   uint32_t spawnObjectFunc;       // 0x6c120;
 };
+BOOST_DESCRIBE_STRUCT(EpidemicOffsets, (), (createPatientObjFunc, spawnObjectFunc));
 
 struct Epidemic {
   uint16_t InspectorObjectIndex;

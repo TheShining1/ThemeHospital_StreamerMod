@@ -162,4 +162,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThemeHospital_StreamerMod_config.json" />
+  </ItemGroup>
 </Project>
