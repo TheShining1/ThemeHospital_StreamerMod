@@ -14,5 +14,5 @@ bool UnlockCameraCommand::Run(std::shared_ptr<GameManager> gameManager) const
 
   gameManager->UnlockCamera();
 
-  return false;
+  return true;
 }

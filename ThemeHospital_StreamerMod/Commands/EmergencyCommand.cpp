@@ -13,7 +13,7 @@ bool EmergencyCommand::Run(std::shared_ptr<GameManager> gameManager) const
   LOG_DEBUG("Running emergency command");
 
   EmergencyNext emergencyNext = EmergencyNext{
-    .Gametick = 0,
+    .Gametick = 1,
     .Bonus = this->Bonus,
     .Enabled = true,
     .Illness = this->Illness,

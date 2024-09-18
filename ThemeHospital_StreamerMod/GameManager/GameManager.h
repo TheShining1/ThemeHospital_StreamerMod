@@ -51,7 +51,7 @@ public:
   std::array<bool, 16>* quakeIndexUsed;
   QuakeNext* quakeNext;
   int* quakeNextClock;
-  BYTE* quakeStage;
+  uint8_t* quakeStage;
   void quakeUnsetLastIndex();
 #pragma endregion
 #pragma region Emergency

@@ -190,7 +190,7 @@ const char* GameManager::VIPSwapName(const char* newName)
 
 void GameManager::VIPDropWaitTime()
 {
-	this->hospital->VIP.GameClock = 0;
+	this->hospital->VIP.GameClock = 1;
 }
 
 void GameManager::VIPSetScore(uint16_t score)

@@ -16,15 +16,9 @@ bool QuakeCommand::Run(std::shared_ptr<GameManager> gameManager) const
 
   gameManager->quakeUnsetLastIndex();
 
-  *gameManager->quakeNextClock = 0;
+  *gameManager->quakeNextClock = 1;
 
-  //std::shared_ptr<QuakeManager> qm = QuakeManager::Get(0x00400000);
-  //qm->UnsetLastIndex();
+  while (*gameManager->quakeStage == 0) { std::this_thread::sleep_for(std::chrono::seconds(1)); }
 
-  //QuakeNext qn = QuakeNext(0, this->Severity, true);
-  //qm->ReplaceQuakeNext(qn);
-  //qm->DropWaitTime();
-
-  //return qm->WaitDone();
-  return false;
+  return true;
 }
