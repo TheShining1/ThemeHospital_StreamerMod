@@ -23,13 +23,16 @@ std::shared_ptr<GameManager> GameManager::Get(GameOffsets gameOffsets)
 
 GameManager::GameManager(GameOffsets gameOffsets)
 {
-	setGlobals(gameOffsets.lpModuleBaseAddress, gameOffsets.globalsOffset);
-	setDisastersMembers(gameOffsets.lpModuleBaseAddress, gameOffsets.disastersOffsets);
-	setEmergencyMembers(gameOffsets.lpModuleBaseAddress, gameOffsets.emergencyOffsets);
-	setEpidemicMembers(gameOffsets.lpModuleBaseAddress, gameOffsets.epidemicOffsets);
-	setQuakeMembers(gameOffsets.lpModuleBaseAddress, gameOffsets.quakeOffsets);
+	uint32_t lpModuleBaseAddress = *(uint32_t*)gameOffsets.lpModuleBaseAddress;
+
+	setGlobals(lpModuleBaseAddress, gameOffsets.globalsOffset);
+	setDisastersMembers(lpModuleBaseAddress, gameOffsets.disastersOffsets);
+	setEmergencyMembers(lpModuleBaseAddress, gameOffsets.emergencyOffsets);
+	setEpidemicMembers(lpModuleBaseAddress, gameOffsets.epidemicOffsets);
+	setQuakeMembers(lpModuleBaseAddress, gameOffsets.quakeOffsets);
 }
 #pragma endregion
+
 #pragma region Globals
 void GameManager::setGlobals(uint32_t LpModuleBaseAddress, GlobalsOffset globalsOffset)
 {
@@ -39,10 +42,10 @@ void GameManager::setGlobals(uint32_t LpModuleBaseAddress, GlobalsOffset globals
 	this->bowelOverflows = (uint16_t*)(LpModuleBaseAddress + globalsOffset.bowelOverflows);
 	this->mayorLaunch = (uint16_t*)(LpModuleBaseAddress + globalsOffset.mayorLaunch);
 	this->isFaxOpen = (bool*)(LpModuleBaseAddress + globalsOffset.isFaxOpen);
-	this->hospital = *(Hospital**)(LpModuleBaseAddress + globalsOffset.hospital);
+	this->hospital = (Hospital*)(LpModuleBaseAddress + globalsOffset.hospital);
 	this->cameraPositionLimit = (CameraPosition*)(LpModuleBaseAddress + globalsOffset.cameraPositionLimit);
-	this->rooms = *(std::array<Room,25>**)(LpModuleBaseAddress + globalsOffset.rooms);
-	this->langTextSections = (LangTextSections*)(LpModuleBaseAddress + globalsOffset.langTextSections);
+	this->rooms = (std::array<Room,25>*)(LpModuleBaseAddress + globalsOffset.rooms);
+	this->VIPNames = (std::array<const char*, 11>*)(LpModuleBaseAddress + globalsOffset.langTextSections);
 }
 #pragma endregion
 
@@ -101,6 +104,7 @@ void GameManager::ResetDisasterDays()
 	this->hospital->daysFromLastDisaster = 0;
 };
 #pragma endregion
+
 #pragma region Quake
 void GameManager::setQuakeMembers(uint32_t LpModuleBaseAddress, QuakeOffsets offsets)
 {
@@ -122,6 +126,7 @@ void GameManager::quakeUnsetLastIndex()
 	}
 };
 #pragma endregion
+
 #pragma region Emergency
 void GameManager::setEmergencyMembers(uint32_t LpModuleBaseAddress, EmergencyOffsets offsets)
 {
@@ -182,8 +187,8 @@ VIPStages GameManager::GetVIPStage()
 const char* GameManager::VIPSwapName(const char* newName)
 {
 	uint8_t nameIndex = this->hospital->VIP.NameIndex;
-	const char* oldName = this->langTextSections->VIPNames->at(nameIndex);
-	this->langTextSections->VIPNames->at(nameIndex) = newName;
+	const char* oldName = this->VIPNames->at(nameIndex);
+	this->VIPNames->at(nameIndex) = newName;
 
 	return oldName;
 }

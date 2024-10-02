@@ -146,22 +146,11 @@ HANDLE CreateConsole()
   return GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
-//void Commands_Thread()
-//{
-//  //std::shared_ptr<QuakeManager> quakeManager = QuakeManager::Get(lpModuleBaseAddress);
-//  //std::shared_ptr<EmergencyManager> emergencyManager = EmergencyManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-//  //std::shared_ptr<VIPManager> vipManager = VIPManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-//  //std::shared_ptr<DisasterManager> disasterManager = DisasterManager::Get(lpModuleBaseAddress, ptHospitalDataOffset);
-//  //std::shared_ptr<EpidemyManager> epidemyManager = EpidemyManager::Get(lpModuleBaseAddress);
-//
-//  unlockCamera(lpModuleBaseAddress);
-//}
-
 bool Init()
 {
   LOG_DEBUG("Init");
 
-  std::ifstream config = std::ifstream("ThemeHospital_StreamerMod_config.json", std::ifstream::binary);
+  std::ifstream config = std::ifstream("ThemeHospital_StreamerMod_DOSBox_config.json", std::ifstream::binary);
 
   GameOffsets gameOffset = {};
   boost::system::error_code ec;

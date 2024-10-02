@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0bba107c-53ae-4858-94a4-694215017ced}</ProjectGuid>
+    <ProjectGuid>{978BA957-57D7-446B-BD19-46C5A07C3DDF}</ProjectGuid>
     <RootNamespace>ThemeHospitalStreamerMod</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -216,10 +216,8 @@
     <ClCompile Include="Commands\QuakeCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="ThemeHospital_StreamerMod_config.json">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
     <None Include="packages.config" />
+    <None Include="ThemeHospital_StreamerMod_DOSBox_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
