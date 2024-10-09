@@ -114,6 +114,9 @@
     <ClInclude Include="Commands\LeaveCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -161,8 +164,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ThemeHospital_StreamerMod_config.json" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="ThemeHospital_StreamerMod_config.json" />
+    <CopyFileToFolders Include="ThemeHospital_StreamerMod_offsets.json" />
   </ItemGroup>
 </Project>

@@ -172,6 +172,7 @@
     <ClInclude Include="Commands\PissCommand.h" />
     <ClInclude Include="Commands\UnlockCameraCommand.h" />
     <ClInclude Include="Commands\VIPCommand.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game\Disasters.h" />
@@ -218,6 +219,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="ThemeHospital_StreamerMod_DOSBox_config.json" />
+    <None Include="ThemeHospital_StreamerMod_DOSBox_offsets.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

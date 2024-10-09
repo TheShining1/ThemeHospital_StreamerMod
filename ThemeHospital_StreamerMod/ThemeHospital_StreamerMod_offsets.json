@@ -1,0 +1,35 @@
+{
+  "lpModuleBaseAddress": 4194304,
+  "GlobalsOffset": {
+    "howContagious": 804814,
+    "leaveMax": 804872,
+    "bowelOverflows": 804888,
+    "mayorLaunch": 804904,
+    "langTextSections": 896864,
+    "isFaxOpen": 913328,
+    "hospital": 905508,
+    "isPaused": 921777,
+    "cameraPositionLimit": 922050,
+    "gameClock": 936104,
+    "rooms": 938504
+  },
+  "DisastersOffsets": {
+    "VomitLimit": 804890,
+    "DoctorPopupText": 904082
+  },
+  "EmergencyOffsets": {
+    "Next": 922029,
+    "SkippedCount": 922062,
+    "IndexUsed": 922091
+  },
+  "QuakeOffsets": {
+    "NextClock": 921979,
+    "Stage": 921983,
+    "Next": 922039,
+    "IndexUsed": 922075
+  },
+  "EpidemicOffsets": {
+    "createPatientObjFunc": 224240,
+    "spawnObjectFunc": 442656
+  }
+}

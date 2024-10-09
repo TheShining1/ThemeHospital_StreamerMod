@@ -172,6 +172,7 @@
     <ClInclude Include="Commands\PissCommand.h" />
     <ClInclude Include="Commands\UnlockCameraCommand.h" />
     <ClInclude Include="Commands\VIPCommand.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game\Disasters.h" />
@@ -216,10 +217,11 @@
     <ClCompile Include="Commands\QuakeCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="ThemeHospital_StreamerMod_config.json">
+    <CopyFileToFolders Include="ThemeHospital_StreamerMod_offsets.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <None Include="packages.config" />
+    <None Include="ThemeHospital_StreamerMod_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <thread>
 #include "dllmain.h"
+#include "Config.h"
 
 #include <boost/beast/core.hpp>
 #include <boost/beast/websocket.hpp>
@@ -17,6 +18,7 @@
 #include "./Commands/Commands.h"
 
 HMODULE hModuleSelf;
+std::string CONFIG_FILENAME = "ThemeHospital_StreamerMod_DOSBox_config.json";
 
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -146,22 +148,46 @@ HANDLE CreateConsole()
   return GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
-bool Init()
+bool ReadOffsets(std::string filename, GameOffsets* gameOffsets)
 {
-  LOG_DEBUG("Init");
+  std::ifstream config = std::ifstream(filename, std::ifstream::binary);
 
-  std::ifstream config = std::ifstream("ThemeHospital_StreamerMod_DOSBox_config.json", std::ifstream::binary);
-
-  GameOffsets gameOffset = {};
   boost::system::error_code ec;
+  boost::json::parse_into(*gameOffsets, config, ec);
+  if (ec.failed())
+  {
+    LOG_DEBUG("Can't read game offsets");
+    LOG_DEBUG(ec.message());
+    return false;
+  }
 
-  boost::json::parse_into(gameOffset, config, ec);
+  return true;
+}
+
+bool ReadConfig(Config* config)
+{
+  std::ifstream configStream = std::ifstream(CONFIG_FILENAME, std::ifstream::binary);
+
+  boost::system::error_code ec;
+  boost::json::parse_into(*config, configStream, ec);
   if (ec.failed())
   {
     LOG_DEBUG("Can't read config");
     LOG_DEBUG(ec.message());
     return false;
   }
+
+  return true;
+}
+
+bool Init(Config* config)
+{
+  LOG_DEBUG("Init");
+
+  if (!ReadConfig(config)) return false;
+
+  GameOffsets gameOffset = {};
+  if (!ReadOffsets(config->gameOffsetsFilename, &gameOffset)) return false;
 
   GameManager::Get(gameOffset);
   return true;
@@ -176,15 +202,13 @@ void hookThread()
 
   LOG_DEBUG("Theme Hospital Streamer Mod DLL injecting");
 
-  if (!Init()) return;
+  Config* config = new Config{};
 
-  WS_Config* wsConfig = new WS_Config{ "127.0.0.1", "9099" };
+  if (!Init(config)) return;
 
-  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WS_Thread, wsConfig, 0, NULL);
-  //CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)Commands_Thread, NULL, 0, NULL);
+  CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WS_Thread, &config->wsConfig, 0, NULL);
 
   LOG_DEBUG("Theme Hospital Streamer Mod DLL injected");
-  LOG_DEBUG(hModuleSelf);
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule,
