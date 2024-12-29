@@ -19,6 +19,7 @@ Also you can unlock the camera position limit and make your patients piss themse
 This mod requires you to have an original Theme Hospital game. It will not work with CorsixTH.
 
 Windows version of this mod was created using Theme Hosptital 1.0.0.1
+
 DOSBox (0.74) version was made using Theme Hospital from [Electronic Arts Store](https://www.ea.com/games/theme/theme-hospital)
 
 Because game doesn't have the modding system this mod is made as a DLL.
