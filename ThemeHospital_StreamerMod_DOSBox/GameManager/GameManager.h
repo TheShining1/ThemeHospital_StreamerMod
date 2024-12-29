@@ -26,7 +26,7 @@ public:
   static std::shared_ptr<GameManager> Get(GameOffsets gameOffsets);
 
   uint32_t* gameClock;
-  std::array<const char*, 11>* VIPNames;
+  std::array<char*, 25>* VIPNames;
   LangTextSections* langTextSections;
   Hospital* hospital;
   std::array<Room, 25>* rooms;

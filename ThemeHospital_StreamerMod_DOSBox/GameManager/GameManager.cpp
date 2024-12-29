@@ -45,7 +45,7 @@ void GameManager::setGlobals(uint32_t LpModuleBaseAddress, GlobalsOffset globals
 	this->hospital = (Hospital*)(LpModuleBaseAddress + globalsOffset.hospital);
 	this->cameraPositionLimit = (CameraPosition*)(LpModuleBaseAddress + globalsOffset.cameraPositionLimit);
 	this->rooms = (std::array<Room,25>*)(LpModuleBaseAddress + globalsOffset.rooms);
-	this->VIPNames = (std::array<const char*, 11>*)(LpModuleBaseAddress + globalsOffset.langTextSections);
+	this->VIPNames = (std::array<char*, 25>*)(LpModuleBaseAddress + globalsOffset.langTextSections);
 }
 #pragma endregion
 
